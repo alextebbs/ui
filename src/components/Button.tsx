@@ -1,5 +1,3 @@
-import React from "react";
-
 import { cn } from "~/utils/cn";
 
 interface ButtonProps {
@@ -31,7 +29,7 @@ interface ButtonProps {
 }
 
 /**
- * Primary UI component for user interaction
+ * Just a simple button.
  */
 export const Button = (props: ButtonProps) => {
   const {
@@ -68,13 +66,13 @@ export const Button = (props: ButtonProps) => {
 
   const color = {
     border: primary
-      ? "border-blue-500 hover:border-blue-600"
+      ? "border-pink-500 hover:border-pink-600"
       : "border-gray-500 hover:border-gray-600",
     bg: primary
-      ? "bg-blue-500 hover:bg-blue-600"
+      ? "bg-pink-700 hover:bg-pink-800"
       : "bg-gray-500 hover:bg-gray-600",
     text: primary
-      ? "text-blue-500 hover:text-blue-600"
+      ? "text-pink-500 hover:text-pink-600"
       : "text-gray-500 hover:text-gray-600",
   };
 
@@ -83,13 +81,13 @@ export const Button = (props: ButtonProps) => {
       type="button"
       disabled={disabled}
       className={cn(
-        `appearance-none rounded-sm transition duration-150 ease-in-out active:scale-95`,
+        `appearance-none rounded-sm uppercase tracking-[0.1em] transition duration-150 ease-in-out active:scale-95`,
         style == "solid" && `${color.bg} text-white`,
-        style == "ghost" && `bg-transparent ${color.text}`,
+        style == "ghost" && `bg-transparent ${color.text} hover:bg-white/5`,
         style == "bordered" && `border ${color.border} ${color.text}`,
-        size == "small" && `px-2 py-1 text-xs`,
-        size == "medium" && `px-4 py-1`,
-        size == "large" && `px-6 py-2 text-xl`,
+        size == "small" && `px-2 py-2 text-xs`,
+        size == "medium" && `px-4 py-2`,
+        size == "large" && `px-6 py-3 text-xl`,
         disabled && `cursor-not-allowed opacity-50`
       )}
     >
