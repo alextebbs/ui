@@ -19,6 +19,9 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
+    label: "Select countries",
+    name: "countries",
+    notFoundText: "No countries found",
     options: DATA,
   },
 };

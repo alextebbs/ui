@@ -6,18 +6,45 @@ import {
   useCallback,
   useLayoutEffect,
 } from "react";
+import { cn } from "~/utils/cn";
+import { Chip } from "./Chip";
 
 interface MultiSelectProps {
   /**
    * A list of strings that represent the options in the dropdown.
    */
-  options: string[];
+  options: DropDownOption[];
+  /**
+   * Name attribute for the <select multiple> element
+   */
+  name: string;
+  /**
+   * Is this multi-select disabled?
+   */
+  disabled?: boolean;
+  /**
+   * Text for label showing above multi-select.
+   */
+  label?: string;
+  /**
+   * Text for placeholder showing inside multi-select.
+   */
+  placeholder?: string;
+  /**
+   * Text for error message saying a search returned no results.
+   */
+  notFoundText?: string;
+  /**
+   * CSS width of the multi-select.
+   */
+  width?: string;
 }
 
 interface DropDownOption {
   value: string;
-  isSelected: boolean;
-  isDisabled: boolean;
+  label: string;
+  isHighlighted?: boolean;
+  isDisabled?: boolean;
 }
 
 const useKeyPress = (
@@ -57,17 +84,25 @@ const useKeyPress = (
 };
 
 /**
- * Primary UI component for user interaction
+ * Multiple select dropdown.
  */
 export const MultiSelect = (props: MultiSelectProps) => {
-  const { options } = props;
+  const {
+    options,
+    label,
+    name,
+    disabled = false,
+    placeholder = "Type to select options",
+    notFoundText = "No results found",
+    width = "480px",
+  } = props;
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+  const [selectedOptions, setSelectedOptions] = useState<DropDownOption[]>([]);
   const [dropDownOptions, setDropDownOptions] = useState<DropDownOption[]>(
     options.map((option) => ({
-      value: option,
+      ...option,
       isSelected: false,
       isDisabled: false,
     }))
@@ -78,65 +113,68 @@ export const MultiSelect = (props: MultiSelectProps) => {
   const [isDropdownHidden, setIsDropdownHidden] = useState<boolean>(true);
   const [isInputFocused, setIsInputFocused] = useState<boolean>(false);
 
+  const selectedOptionValues = selectedOptions.map((option) => option.value);
+
   /**
    *
    */
-  const manageSelectedDropDownItems = (
+  const manageHighlightedDropDownOption = (
     options: DropDownOption[],
-    mode: "up" | "down" | undefined = undefined
+    mode: "next" | "prev" | undefined | number = undefined
   ) => {
     // get index of currently selected item
-    const selectedIndex = options.findIndex((option) => option.isSelected);
 
-    if (selectedIndex === -1) {
-      let count = 0;
+    let idxToSelect = 0;
 
-      const newDropDownOptions: DropDownOption[] = options.map(
-        (option, i): DropDownOption => {
-          count = option.isDisabled ? count + 1 : count;
-          return { ...option, isSelected: i === count ? true : false };
-        }
-      );
-
-      setDropDownOptions(newDropDownOptions);
-    } else {
-      let count = selectedIndex;
-
+    if (typeof mode != "number") {
       // find index of next non-disabled item to select
-      if (mode == "down") {
-        while (count++ && options[count]?.isDisabled == true);
-        if (count > options.length - 1) count = options.length - 1;
+
+      const selectedIdx = options.findIndex((option) => option.isHighlighted);
+      idxToSelect = selectedIdx;
+
+      if (mode == "prev") {
+        // find the prev non-disabled item relative to the currently selected item
+        while (idxToSelect-- && options[idxToSelect]?.isDisabled == true);
+        if (idxToSelect < 0) idxToSelect = selectedIdx;
+      } else if (mode == "next") {
+        // find the next non-disabled item relative to the currently selected item
+        while (idxToSelect++ && options[idxToSelect]?.isDisabled == true);
+        if (idxToSelect > options.length - 1) idxToSelect = options.length - 1;
       } else {
-        while (count-- && options[count]?.isDisabled == true);
-        if (count < 0) count = selectedIndex;
+        // Find the first non-disabled item
+        idxToSelect = 0;
+        while (options[idxToSelect]?.isDisabled == true) idxToSelect++;
+        if (idxToSelect > options.length - 1) idxToSelect = options.length - 1;
       }
-
-      const newDropDownOptions: DropDownOption[] = options.map(
-        (option, i): DropDownOption => {
-          return { ...option, isSelected: i === count ? true : false };
-        }
-      );
-
-      setDropDownOptions(newDropDownOptions);
+    } else {
+      idxToSelect = mode;
     }
+
+    const newDropDownOptions: DropDownOption[] = options.map(
+      (option, i): DropDownOption => {
+        return {
+          ...option,
+          isHighlighted: i === idxToSelect ? true : false,
+          isDisabled: selectedOptionValues.includes(option.value),
+        };
+      }
+    );
+
+    setDropDownOptions(newDropDownOptions);
   };
 
   const handleKeyPress = (event: KeyboardEvent) => {
     if (!isInputFocused) return;
 
-    console.log(`key pressed: ${event.key}`);
-
     if (event.key === "Enter") {
       event.preventDefault();
 
       const selectedOption = dropDownOptions.find(
-        (option) => option.isSelected
+        (option) => option.isHighlighted
       );
 
       if (selectedOption) {
-        handleAddOption(selectedOption.value);
-        setIsDropdownHidden(true);
-        setInputValue("");
+        handleAddOption(selectedOption);
       }
     }
 
@@ -148,12 +186,12 @@ export const MultiSelect = (props: MultiSelectProps) => {
 
     if (event.key === "ArrowUp") {
       event.preventDefault();
-      manageSelectedDropDownItems(dropDownOptions, "up");
+      manageHighlightedDropDownOption(dropDownOptions, "prev");
     }
 
     if (event.key === "ArrowDown") {
       event.preventDefault();
-      manageSelectedDropDownItems(dropDownOptions, "down");
+      manageHighlightedDropDownOption(dropDownOptions, "next");
     }
   };
 
@@ -178,41 +216,44 @@ export const MultiSelect = (props: MultiSelectProps) => {
     const newDropDownOptions: DropDownOption[] = options
       .map((option): DropDownOption => {
         return {
-          value: option,
-          isSelected: false,
-          isDisabled: selectedOptions.includes(option),
+          ...option,
+          isDisabled: selectedOptionValues.includes(option.value),
         };
       })
       .filter((option) =>
-        option.value.toUpperCase().includes(value.toUpperCase())
+        option.label.toUpperCase().includes(value.toUpperCase())
       );
 
-    manageSelectedDropDownItems(newDropDownOptions);
+    manageHighlightedDropDownOption(newDropDownOptions);
   };
 
-  const handleRemoveOption = (item: string) => {
+  const handleRemoveOption = (optionToRemove: DropDownOption) => {
     const newSelectedOptions = selectedOptions.filter((option) => {
-      return option !== item;
+      return option.value !== optionToRemove.value;
     });
 
     setSelectedOptions(newSelectedOptions);
+
+    manageHighlightedDropDownOption(dropDownOptions);
 
     if (inputRef.current) {
       inputRef.current.focus();
     }
   };
 
-  const handleAddOption = (item: string) => {
-    setSelectedOptions([...selectedOptions, item]);
+  const handleAddOption = (optionToAdd: DropDownOption) => {
+    setSelectedOptions([...selectedOptions, optionToAdd]);
+    setIsDropdownHidden(true);
+    setInputValue("");
+
+    manageHighlightedDropDownOption(dropDownOptions);
 
     if (inputRef.current) {
-      inputRef.current.value = "";
       inputRef.current.focus();
     }
   };
 
   const handleInputFocus = (event: ChangeEvent<HTMLInputElement>) => {
-    setIsDropdownHidden(false);
     setIsInputFocused(true);
   };
 
@@ -243,65 +284,108 @@ export const MultiSelect = (props: MultiSelectProps) => {
   };
 
   return (
-    <div className="relative w-[480px] text-sm uppercase text-white">
-      <div
-        className={`flex flex-wrap gap-1 border border-solid border-white p-1 ${
-          !isDropdownHidden ? `rounded-tl-sm rounded-tr-sm` : `rounded-sm`
-        }`}
-      >
-        {selectedOptions.map((item, idx) => (
-          <button
-            key={idx}
-            className="cursor-delete flex appearance-none whitespace-nowrap rounded-sm border border-transparent bg-pink-500/20 p-1 px-2 uppercase text-pink-500 hover:border hover:border-red-500 hover:bg-red-500/20 hover:text-red-500"
-            onClick={() => handleRemoveOption(item)}
-          >
-            <div className="whitespace-nowrap pr-1">{item}</div>
-            &times;
-          </button>
-        ))}
-        <input
-          ref={inputRef}
-          value={inputValue}
-          onChange={(e) => handleInputChange(e)}
-          onFocus={(e) => handleInputFocus(e)}
-          onBlur={(e) => handleInputBlur(e)}
-          className="flex-grow appearance-none rounded-sm border-none bg-transparent p-1 px-3 uppercase text-white outline-none"
-        />
-      </div>
-      <div
-        className={`absolute left-0 right-0 top-full max-h-[320px] overflow-auto rounded-bl-sm rounded-br-sm border border-t-0 border-white pt-[1px] ${
-          isDropdownHidden ? `hidden` : ``
-        }`}
-      >
-        {dropDownOptions.length === 0 && (
-          <div className="w-full cursor-not-allowed appearance-none p-2 px-4 text-left uppercase text-red-600">
-            No Available Options
-          </div>
-        )}
-        {dropDownOptions.map((item) => {
-          return item.isDisabled ? (
-            <div className="w-full cursor-not-allowed appearance-none p-2 px-4 text-left uppercase text-gray-600">
-              {item.value}
+    <div
+      style={{ width: width }}
+      className={`${disabled && "cursor-not-allowed opacity-50"}`}
+    >
+      {label && (
+        <label
+          className={cn(
+            `mb-2 block text-xs uppercase tracking-[0.15em] text-gray-300`,
+            disabled && "cursor-not-allowed"
+          )}
+        >
+          {label}
+        </label>
+      )}
+      <div className="relative text-sm uppercase text-gray-300">
+        <div
+          className={cn(
+            `flex flex-wrap gap-1 border border-solid border-gray-300 p-1`,
+            !isDropdownHidden ? `rounded-tl-md rounded-tr-md` : `rounded-md`
+          )}
+        >
+          {selectedOptions.map((item, i) => (
+            <div key={i}>
+              <Chip
+                label={item.label}
+                onRemove={() => handleRemoveOption(item)}
+              />
             </div>
-          ) : (
-            <button
-              // Don't fire blur when you mousedown here, or else the dropdown
-              // will disappear before the click event fires.
-              onMouseDown={(e) => e.preventDefault()}
-              onClick={() => handleAddOption(item.value)}
-              className={`group relative w-full appearance-none p-2 px-4 text-left uppercase ${
-                item.isSelected ? `bg-pink-500/20 text-pink-500` : ``
-              }`}
-            >
+          ))}
+          <input
+            ref={inputRef}
+            value={inputValue}
+            onChange={(e) => handleInputChange(e)}
+            onFocus={(e) => handleInputFocus(e)}
+            onBlur={(e) => handleInputBlur(e)}
+            placeholder={placeholder}
+            disabled={disabled}
+            className={cn(
+              `flex-grow appearance-none rounded-sm border border-transparent bg-transparent p-1 px-3 uppercase text-white outline-none placeholder:text-gray-700`,
+              disabled && `cursor-not-allowed`
+            )}
+          />
+        </div>
+        <div
+          className={cn(
+            `absolute left-0 right-0 top-full max-h-[320px] overflow-auto rounded-bl-md rounded-br-md border border-t-0 border-gray-300`,
+            isDropdownHidden && `hidden`
+          )}
+        >
+          {dropDownOptions.length === 0 && (
+            <div className="w-full cursor-not-allowed appearance-none bg-red-500/10 p-2 px-4 uppercase text-red-600">
+              {notFoundText}
+            </div>
+          )}
+          {dropDownOptions.map((option, i) => {
+            return option.isDisabled ? (
               <div
-                className={`absolute -inset-[1px] z-10 border border-pink-500 ${
-                  item.isSelected ? `block` : `hidden`
-                }`}
-              ></div>
-              {getHighlightedText(item.value, inputValue)}
-            </button>
-          );
-        })}
+                key={i}
+                className="w-full cursor-not-allowed appearance-none p-2 px-4 text-left uppercase text-gray-600"
+              >
+                {option.label}
+              </div>
+            ) : (
+              <button
+                // Don't fire blur when you mousedown here, or else the dropdown
+                // will disappear before the click event fires.
+                key={i}
+                onMouseDown={(e) => e.preventDefault()}
+                onClick={() => handleAddOption(option)}
+                onMouseMove={() => {
+                  manageHighlightedDropDownOption(dropDownOptions, i);
+                }}
+                className={cn(
+                  `group relative w-full appearance-none p-2 px-4 text-left uppercase`,
+                  option.isHighlighted && `bg-blue-500/20 text-blue-500`
+                )}
+              >
+                <div
+                  className={cn(
+                    `absolute -inset-[1px] z-10 border border-blue-500`,
+                    option.isHighlighted ? `block` : `hidden`
+                  )}
+                ></div>
+                {getHighlightedText(option.label, inputValue)}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="hidden">
+        <select name={name} id={name} multiple disabled={disabled}>
+          {options.map((option, i) => {
+            const isSelected = selectedOptionValues.includes(option.value);
+
+            return (
+              <option key={i} value={option.value} selected={isSelected}>
+                {option.label}
+              </option>
+            );
+          })}
+        </select>
       </div>
     </div>
   );
