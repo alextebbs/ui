@@ -9,6 +9,8 @@ import {
 import { cn } from "~/utils/cn";
 import { Chip } from "./Chip";
 
+import { nanoid } from "nanoid";
+
 interface MultiSelectProps {
   /**
    * A list of strings that represent the options in the dropdown.
@@ -268,8 +270,8 @@ export const MultiSelect = (props: MultiSelectProps) => {
 
     return (
       <span>
-        {parts.map((part, i) => (
-          <span key={i}>
+        {parts.map((part) => (
+          <span key={nanoid()}>
             {part.toLowerCase() === pattern.toLowerCase() ? (
               <mark className="bg-transparent text-inherit underline">
                 {part}
@@ -305,8 +307,8 @@ export const MultiSelect = (props: MultiSelectProps) => {
             !isDropdownHidden ? `rounded-tl-md rounded-tr-md` : `rounded-md`
           )}
         >
-          {selectedOptions.map((item, i) => (
-            <div key={i}>
+          {selectedOptions.map((item) => (
+            <div key={nanoid()}>
               <Chip
                 label={item.label}
                 onRemove={() => handleRemoveOption(item)}
@@ -341,7 +343,7 @@ export const MultiSelect = (props: MultiSelectProps) => {
           {dropDownOptions.map((option, i) => {
             return option.isDisabled ? (
               <div
-                key={i}
+                key={nanoid()}
                 className="w-full cursor-not-allowed appearance-none p-2 px-4 text-left uppercase text-gray-600"
               >
                 {option.label}
@@ -350,7 +352,7 @@ export const MultiSelect = (props: MultiSelectProps) => {
               <button
                 // Don't fire blur when you mousedown here, or else the dropdown
                 // will disappear before the click event fires.
-                key={i}
+                key={nanoid()}
                 onMouseDown={(e) => e.preventDefault()}
                 onClick={() => handleAddOption(option)}
                 onMouseMove={() => {
@@ -358,12 +360,12 @@ export const MultiSelect = (props: MultiSelectProps) => {
                 }}
                 className={cn(
                   `group relative w-full appearance-none p-2 px-4 text-left uppercase`,
-                  option.isHighlighted && `bg-blue-500/20 text-blue-500`
+                  option.isHighlighted && `bg-pink-500/20 text-pink-500`
                 )}
               >
                 <div
                   className={cn(
-                    `absolute -inset-[1px] z-10 border border-blue-500`,
+                    `absolute -inset-[1px] z-10 border border-pink-500`,
                     option.isHighlighted ? `block` : `hidden`
                   )}
                 ></div>
@@ -380,7 +382,7 @@ export const MultiSelect = (props: MultiSelectProps) => {
             const isSelected = selectedOptionValues.includes(option.value);
 
             return (
-              <option key={i} value={option.value} selected={isSelected}>
+              <option key={nanoid()} value={option.value} selected={isSelected}>
                 {option.label}
               </option>
             );

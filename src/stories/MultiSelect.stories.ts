@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import { MultiSelect } from "~/components/MultiSelect";
 
-import { DATA } from "./mockData/countries";
+import { DATA } from "./mock-data/countries";
 
 const meta = {
   title: "Example/MultiSelect",
