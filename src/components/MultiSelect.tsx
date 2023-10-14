@@ -293,17 +293,17 @@ export const MultiSelect = (props: MultiSelectProps) => {
       {label && (
         <label
           className={cn(
-            `mb-2 block text-xs uppercase tracking-[0.15em] text-gray-300`,
+            `mb-2 block text-xs uppercase tracking-[0.15em] dark:text-neutral-300`,
             disabled && "cursor-not-allowed"
           )}
         >
           {label}
         </label>
       )}
-      <div className="relative text-sm uppercase text-gray-300">
+      <div className="relative text-sm uppercase dark:text-neutral-300">
         <div
           className={cn(
-            `flex flex-wrap gap-1 border border-solid border-gray-300 p-1`,
+            `flex flex-wrap gap-1 border border-solid border-neutral-600 p-1 dark:border-neutral-300`,
             !isDropdownHidden ? `rounded-tl-md rounded-tr-md` : `rounded-md`
           )}
         >
@@ -324,14 +324,14 @@ export const MultiSelect = (props: MultiSelectProps) => {
             placeholder={placeholder}
             disabled={disabled}
             className={cn(
-              `flex-grow appearance-none rounded-sm border border-transparent bg-transparent p-1 px-3 uppercase text-white outline-none placeholder:text-gray-700`,
+              `flex-grow appearance-none rounded-sm border border-transparent bg-transparent p-1 px-3 uppercase outline-none placeholder:text-neutral-400 dark:text-white dark:placeholder:text-neutral-700`,
               disabled && `cursor-not-allowed`
             )}
           />
         </div>
         <div
           className={cn(
-            `absolute left-0 right-0 top-full max-h-[320px] overflow-auto rounded-bl-md rounded-br-md border border-t-0 border-gray-300`,
+            `absolute left-0 right-0 top-full max-h-[320px] overflow-auto rounded-bl-md rounded-br-md border border-t-0 border-neutral-600 dark:border-neutral-300`,
             isDropdownHidden && `hidden`
           )}
         >
@@ -344,7 +344,7 @@ export const MultiSelect = (props: MultiSelectProps) => {
             return option.isDisabled ? (
               <div
                 key={nanoid()}
-                className="w-full cursor-not-allowed appearance-none p-2 px-4 text-left uppercase text-gray-600"
+                className="w-full cursor-not-allowed appearance-none p-2 px-4 text-left uppercase text-neutral-600"
               >
                 {option.label}
               </div>
@@ -360,12 +360,12 @@ export const MultiSelect = (props: MultiSelectProps) => {
                 }}
                 className={cn(
                   `group relative w-full appearance-none p-2 px-4 text-left uppercase`,
-                  option.isHighlighted && `bg-pink-500/20 text-pink-500`
+                  option.isHighlighted && `bg-primary-500/20 text-primary-500`
                 )}
               >
                 <div
                   className={cn(
-                    `absolute -inset-[1px] z-10 border border-pink-500`,
+                    `absolute -inset-[1px] z-10 border border-primary-500`,
                     option.isHighlighted ? `block` : `hidden`
                   )}
                 ></div>

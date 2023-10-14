@@ -1,4 +1,6 @@
-import type { Preview } from "@storybook/react";
+import { type Preview } from "@storybook/react";
+
+import React from "react";
 
 import { withThemeByClassName } from "@storybook/addon-styling";
 
@@ -7,6 +9,7 @@ import "../src/styles/globals.css";
 
 const preview: Preview = {
   parameters: {
+    layout: "fullscreen",
     actions: { argTypesRegex: "^on[A-Z].*" },
     controls: {
       matchers: {
@@ -14,27 +17,28 @@ const preview: Preview = {
         date: /Date$/,
       },
     },
-    backgrounds: {
-      default: "dark",
-      values: [
-        {
-          name: "dark",
-          value: "#111111",
-        },
-      ],
-    },
   },
 
   decorators: [
+    (Story) => (
+      <div className="flex w-screen">
+        <div className="dark flex h-screen w-1/2 items-center justify-center bg-neutral-950 p-2">
+          <Story />
+        </div>
+        <div className="light flex h-screen w-1/2 items-center justify-center bg-neutral-50 p-2">
+          <Story />
+        </div>
+      </div>
+    ),
     // Adds theme switching support.
     // NOTE: requires setting "darkMode" to "class" in your tailwind config
-    withThemeByClassName({
-      themes: {
-        light: "light",
-        dark: "dark",
-      },
-      defaultTheme: "light",
-    }),
+    // withThemeByClassName({
+    //   themes: {
+    //     light: "light",
+    //     dark: "dark",
+    //   },
+    //   defaultTheme: "dark",
+    // }),
   ],
 };
 

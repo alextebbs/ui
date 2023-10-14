@@ -7,9 +7,6 @@ import { DATA } from "./mock-data/treeview";
 const meta = {
   title: "Example/TreeView",
   component: TreeView,
-  parameters: {
-    layout: "centered",
-  },
   tags: ["autodocs"],
   argTypes: {},
 } satisfies Meta<typeof TreeView>;
@@ -19,6 +16,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    items: DATA,
+    ...DATA,
   },
 };

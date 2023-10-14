@@ -5,9 +5,6 @@ import { Calendar } from "~/components/Calendar";
 const meta = {
   title: "Example/Calendar",
   component: Calendar,
-  parameters: {
-    layout: "centered",
-  },
   tags: ["autodocs"],
   argTypes: {},
 } satisfies Meta<typeof Calendar>;

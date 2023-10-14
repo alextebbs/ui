@@ -21,7 +21,7 @@ interface CalendarProps {
 }
 
 /**
- * Just a simple button.
+ * Calendar view
  */
 export const Calendar = (props: CalendarProps) => {
   const { date = dayjs() } = props;
@@ -109,10 +109,10 @@ export const Calendar = (props: CalendarProps) => {
   const days = [...previousMonthDays, ...currentMonthDays, ...nextMonthDays];
 
   return (
-    <div className="rounded-md border border-gray-400">
-      <div className="flex justify-between p-1 text-center text-sm uppercase tracking-[0.15em] text-gray-400">
+    <div className="rounded-md border border-neutral-400">
+      <div className="flex justify-between p-1 text-center text-sm uppercase tracking-[0.15em] text-neutral-400">
         <button
-          className="rounded-sm border border-transparent p-2 px-3 hover:border-pink-500 hover:bg-pink-500/20 hover:text-pink-500"
+          className="rounded-sm border border-transparent p-2 px-3 hover:border-primary-500 hover:bg-primary-500/20 hover:text-primary-500"
           onClick={() => setDateState(dayjs(dateState).subtract(1, "month"))}
         >
           <BsChevronLeft />
@@ -121,25 +121,25 @@ export const Calendar = (props: CalendarProps) => {
           {dayjs(`${year}-${month}-01`).format("MMMM YYYY")}
         </div>
         <button
-          className="rounded-sm border border-transparent p-2 px-3 hover:border-pink-500 hover:bg-pink-500/20 hover:text-pink-500"
+          className="rounded-sm border border-transparent p-2 px-3 hover:border-primary-500 hover:bg-primary-500/20 hover:text-primary-500"
           onClick={() => setDateState(dayjs(dateState).add(1, "month"))}
         >
           <BsChevronRight />
         </button>
       </div>
-      <div className="grid grid-cols-7 border-y border-gray-400 px-2">
+      <div className="grid grid-cols-7 border-y border-neutral-400 px-2">
         {WEEKDAYS.map((day) => (
           <div
             key={nanoid()}
             className={cn(
-              `flex items-center justify-center p-3 py-1.5 text-xs uppercase text-gray-400`
+              `flex items-center justify-center p-3 py-1.5 text-xs uppercase text-neutral-400`
             )}
           >
             {day}
           </div>
         ))}
       </div>
-      <div className="grnanoid()d-cols-7 grid p-2 text-white">
+      <div className="grid grid-cols-7 p-2 dark:text-white">
         {days.map((day) => {
           const isToday = day.date == dayjs().format("YYYY-MM-DD");
 
@@ -148,14 +148,14 @@ export const Calendar = (props: CalendarProps) => {
               key={nanoid()}
               className={cn(
                 `flex items-center justify-center rounded-sm border border-transparent p-3 text-sm`,
-                !day.isCurrentMonth && `text-gray-600`,
+                !day.isCurrentMonth && `text-neutral-400 dark:text-neutral-600`,
                 day.isCurrentMonth &&
-                  `hover:border-pink-500 hover:bg-pink-500/20 hover:text-pink-500`
+                  `hover:border-primary-500 hover:bg-primary-500/20 hover:text-primary-500`
               )}
             >
               <span
                 className={cn(
-                  isToday && `border-b border-pink-500 text-pink-500`
+                  isToday && `border-b border-primary-500 text-primary-500`
                 )}
               >
                 {dayjs(`${day.date}`).format("DD")}

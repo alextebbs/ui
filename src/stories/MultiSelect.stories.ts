@@ -7,9 +7,6 @@ import { DATA } from "./mock-data/countries";
 const meta = {
   title: "Example/MultiSelect",
   component: MultiSelect,
-  parameters: {
-    layout: "centered",
-  },
   tags: ["autodocs"],
   argTypes: {},
 } satisfies Meta<typeof MultiSelect>;

@@ -21,7 +21,7 @@ export const Chip = (props: ChipProps) => {
 
   return (
     <div
-      className={`flex rounded-sm border border-transparent bg-pink-500/20 text-sm uppercase text-pink-500 hover:border ${
+      className={`flex rounded-sm border border-transparent bg-primary-500/20 text-sm uppercase text-primary-500 hover:border ${
         removeHovered ? `border-red-500 bg-red-500/20 text-red-500` : ``
       }`}
     >
