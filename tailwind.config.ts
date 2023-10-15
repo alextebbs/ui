@@ -9,7 +9,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["IBM Plex Mono", "sans-serif"],
+        sans: ["var(--font-sans)", "IBM_Plex_Mono", "sans-serif"],
       },
       colors: {
         primary: colors.blue,

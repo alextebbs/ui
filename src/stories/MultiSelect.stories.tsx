@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { MultiSelect } from "~/components/MultiSelect";
+import { MultiSelect } from "@/components/MultiSelect";
 
 import { DATA } from "./mock-data/countries";
 
@@ -20,5 +20,6 @@ export const Default: Story = {
     name: "countries",
     notFoundText: "No countries found",
     options: DATA,
+    width: "480px",
   },
 };

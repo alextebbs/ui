@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { TreeView } from "~/components/TreeView";
+import { TreeView } from "@/components/TreeView";
 
 import { DATA } from "./mock-data/treeview";
 

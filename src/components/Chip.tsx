@@ -2,9 +2,9 @@ import { type MouseEventHandler, useState } from "react";
 
 interface ChipProps {
   /**
-   * Label for this chip.
+   * Contents of the Chip.
    */
-  label: string;
+  children: React.ReactNode | string;
   /**
    * A function to call when the remove button is clicked.
    */
@@ -15,7 +15,7 @@ interface ChipProps {
  * Small "chip" or "tag" component. Used in MultiSelect component.
  */
 export const Chip = (props: ChipProps) => {
-  const { label, onRemove } = props;
+  const { onRemove, children } = props;
 
   const [removeHovered, setRemoveHovered] = useState(false);
 
@@ -25,7 +25,7 @@ export const Chip = (props: ChipProps) => {
         removeHovered ? `border-red-500 bg-red-500/20 text-red-500` : ``
       }`}
     >
-      <div className={`p-1 pl-2 ${!onRemove && "pr-2"}`}>{label}</div>
+      <div className={`p-1 pl-2 ${!onRemove && "pr-2"}`}>{children}</div>
 
       {onRemove && (
         <button

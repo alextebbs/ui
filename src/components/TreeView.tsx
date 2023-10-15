@@ -1,4 +1,4 @@
-import { cn } from "~/utils/cn";
+import { cn } from "@/utils/cn";
 
 import { nanoid } from "nanoid";
 import { useState } from "react";
@@ -30,7 +30,7 @@ interface TreeViewProps {
 }
 
 /**
- * Simple Tree Vieow
+ * Recursive tree view component.
  */
 export const TreeView = (props: TreeViewProps) => {
   const {

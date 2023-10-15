@@ -6,7 +6,7 @@ import {
   useCallback,
   useLayoutEffect,
 } from "react";
-import { cn } from "~/utils/cn";
+import { cn } from "@/utils/cn";
 import { Chip } from "./Chip";
 
 import { nanoid } from "nanoid";
@@ -96,7 +96,7 @@ export const MultiSelect = (props: MultiSelectProps) => {
     disabled = false,
     placeholder = "Type to select options",
     notFoundText = "No results found",
-    width = "480px",
+    width = "100%",
   } = props;
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -287,7 +287,7 @@ export const MultiSelect = (props: MultiSelectProps) => {
 
   return (
     <div
-      style={{ width: width }}
+      style={{ maxWidth: width, width: "100%" }}
       className={`${disabled && "cursor-not-allowed opacity-50"}`}
     >
       {label && (
@@ -309,10 +309,9 @@ export const MultiSelect = (props: MultiSelectProps) => {
         >
           {selectedOptions.map((item) => (
             <div key={nanoid()}>
-              <Chip
-                label={item.label}
-                onRemove={() => handleRemoveOption(item)}
-              />
+              <Chip onRemove={() => handleRemoveOption(item)}>
+                {item.label}
+              </Chip>
             </div>
           ))}
           <input

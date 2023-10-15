@@ -5,7 +5,29 @@ import React from "react";
 import { withThemeByClassName } from "@storybook/addon-styling";
 
 /* TODO: update import to your tailwind styles file. If you're using Angular, inject this through your angular.json config instead */
-import "../src/styles/globals.css";
+import "@/styles/globals.css";
+
+import { IBM_Plex_Mono } from "next/font/google";
+
+export const sans = IBM_Plex_Mono({
+  weight: ["400", "700"],
+  style: ["normal", "italic"],
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
+
+export const DefaultDecorator = (Story) => (
+  <div
+    className={`${sans.variable} flex w-screen flex-col font-sans md:flex-row`}
+  >
+    <div className="dark flex min-h-[50vh] items-center justify-center bg-neutral-950 p-2 md:h-screen md:w-1/2">
+      <Story />
+    </div>
+    <div className="light flex min-h-[50vh] items-center justify-center bg-neutral-50 p-2 md:h-screen md:w-1/2">
+      <Story />
+    </div>
+  </div>
+);
 
 const preview: Preview = {
   parameters: {
@@ -18,28 +40,7 @@ const preview: Preview = {
       },
     },
   },
-
-  decorators: [
-    (Story) => (
-      <div className="flex w-screen">
-        <div className="dark flex h-screen w-1/2 items-center justify-center bg-neutral-950 p-2">
-          <Story />
-        </div>
-        <div className="light flex h-screen w-1/2 items-center justify-center bg-neutral-50 p-2">
-          <Story />
-        </div>
-      </div>
-    ),
-    // Adds theme switching support.
-    // NOTE: requires setting "darkMode" to "class" in your tailwind config
-    // withThemeByClassName({
-    //   themes: {
-    //     light: "light",
-    //     dark: "dark",
-    //   },
-    //   defaultTheme: "dark",
-    // }),
-  ],
+  decorators: [DefaultDecorator],
 };
 
 export default preview;
