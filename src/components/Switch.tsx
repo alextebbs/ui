@@ -8,19 +8,26 @@ interface SwitchProps extends React.InputHTMLAttributes<HTMLInputElement> {}
  * Toggle switch that binds to a checkbox input.
  */
 export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
-  ({ className, checked, ...props }, ref) => {
+  ({ className, checked, disabled, ...props }, ref) => {
     const [checkedState, setCheckedState] = React.useState(checked);
 
     return (
-      <div className={cn("inline-block", className)}>
+      <div
+        className={cn(
+          "inline-block",
+          disabled && "cursor-not-allowed opacity-50",
+          className
+        )}
+      >
         <input
           type="checkbox"
           checked={checkedState}
-          className={cn("peer hidden")}
+          disabled={disabled}
+          className={cn("hidden")}
           {...props}
         />
         <button
-          onClick={() => setCheckedState(!checkedState)}
+          onClick={() => !disabled && setCheckedState(!checkedState)}
           className={cn(
             "rounded-md border border-neutral-400 p-1 text-xs tracking-[0.15em] text-neutral-600 transition-all dark:border-neutral-600",
             checkedState && "border-primary-500 dark:border-primary-500"
@@ -39,7 +46,7 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
                 !checkedState && "-translate-x-16"
               )}
             >
-              <div className={cn("w-16 text-blue-500")}>ON</div>
+              <div className={cn("w-16 text-primary-500")}>ON</div>
               <div
                 className={cn(
                   "h-8 w-4 rounded-sm transition-all",
