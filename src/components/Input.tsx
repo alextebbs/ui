@@ -16,7 +16,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           ref={ref}
           type={type}
           className={cn(
-            "peer rounded-md border border-neutral-600 bg-transparent px-3 py-2 text-sm focus-visible:border-primary-500 focus-visible:bg-primary-500/10 focus-visible:outline-none focus-visible:placeholder:text-primary-500/40 dark:border-neutral-300 focus-visible:dark:border-primary-500",
+            "peer rounded-md border border-neutral-600 bg-transparent px-4 py-2 text-sm focus-visible:border-primary-500 focus-visible:bg-primary-500/10 focus-visible:outline-none focus-visible:placeholder:text-primary-500/40 dark:border-neutral-300 focus-visible:dark:border-primary-500",
             icon && `pl-9`,
             disabled && `cursor-not-allowed opacity-50`,
             className
