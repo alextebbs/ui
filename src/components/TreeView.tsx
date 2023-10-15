@@ -20,13 +20,13 @@ interface TreeViewProps {
    */
   isExpanded?: boolean;
   /**
-   * The children of this item, as TreeView elements.
-   */
-  items?: TreeViewProps[];
-  /**
    * Is this the root element of the treeview? If so, don't show it, just show its children.
    */
-  root?: boolean;
+  isRoot?: boolean;
+  /**
+   * Recursive list of TreeView item children
+   */
+  items?: TreeViewProps[];
 }
 
 /**
@@ -36,7 +36,7 @@ export const TreeView = (props: TreeViewProps) => {
   const {
     items,
     label,
-    root,
+    isRoot,
     isExpanded: defaultExpandedState = false,
   } = props;
 
@@ -44,11 +44,11 @@ export const TreeView = (props: TreeViewProps) => {
 
   const hasChildren = items && items.length > 0;
 
-  return root ? (
+  return isRoot ? (
     <div className="flex h-full w-full flex-col">
       {items?.map((item) => (
         <div key={nanoid()}>
-          <TreeView label={item.label} items={item.items} />
+          <TreeView {...item} />
         </div>
       ))}
     </div>
@@ -71,7 +71,7 @@ export const TreeView = (props: TreeViewProps) => {
       <div className={cn(`hidden pl-4`, isExpanded && `block`)}>
         {items?.map((item) => (
           <div key={nanoid()}>
-            <TreeView label={item.label} items={item.items} />
+            <TreeView {...item} />
           </div>
         ))}
       </div>

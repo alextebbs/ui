@@ -21,5 +21,6 @@ export const Default: Story = {
     placeholder: "Your Message Here",
     disabled: false,
     className: "w-96 min-h-[180px]",
+    "aria-invalid": true,
   },
 };

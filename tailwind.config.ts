@@ -12,9 +12,10 @@ export default {
         sans: ["var(--font-sans)", "IBM_Plex_Mono", "sans-serif"],
       },
       colors: {
-        primary: colors.pink,
+        primary: colors.blue,
         secondary: colors.yellow,
         neutral: colors.slate,
+        error: colors.red,
       },
     },
   },

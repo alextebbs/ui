@@ -86,7 +86,7 @@ const useKeyPress = (
 };
 
 /**
- * Multiple select dropdown.
+ * Multiple select dropdown. Binds to a hidden <code>select</code> element.
  */
 export const MultiSelect = (props: MultiSelectProps) => {
   const {

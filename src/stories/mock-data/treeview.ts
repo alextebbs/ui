@@ -1,16 +1,23 @@
 export const DATA = {
   label: "Locations",
-  root: true,
+  isRoot: true,
   items: [
     {
       label: "Europe",
+      isExpanded: true,
       items: [
         {
           label: "France",
+          isExpanded: true,
           items: [
             {
               label: "Paris",
-              items: [{ label: "Eiffel Tower" }, { label: "Louvre Museum" }],
+              isExpanded: true,
+              items: [
+                { label: "Eiffel Tower" },
+                { label: "Louvre Museum" },
+                { label: "Notre-Dame de Paris" },
+              ],
             },
             {
               label: "Marseille",
@@ -20,6 +27,7 @@ export const DATA = {
         },
         {
           label: "United Kingdom",
+          isExpanded: true,
           items: [
             {
               label: "London",
@@ -39,6 +47,7 @@ export const DATA = {
     },
     {
       label: "North America",
+      isExpanded: true,
       items: [
         {
           label: "United States",
@@ -72,6 +81,44 @@ export const DATA = {
       ],
     },
     {
+      label: "South America",
+      isExpanded: true,
+      items: [
+        {
+          label: "Brazil",
+          isExpanded: true,
+          items: [
+            {
+              label: "Rio de Janeiro",
+              isExpanded: true,
+              items: [
+                { label: "Christ the Redeemer" },
+                { label: "Copacabana Beach" },
+                { label: "Ipanema Beach" },
+              ],
+            },
+            {
+              label: "São Paulo",
+              items: [{ label: "São Paulo Museum of Art" }],
+            },
+          ],
+        },
+        {
+          label: "Argentina",
+          items: [
+            {
+              label: "Buenos Aires",
+              items: [{ label: "Casa Rosada" }],
+            },
+            {
+              label: "Mendoza",
+              items: [{ label: "Aconcagua" }],
+            },
+          ],
+        },
+      ],
+    },
+    {
       label: "Asia",
       items: [
         {
@@ -97,6 +144,41 @@ export const DATA = {
             {
               label: "Mumbai",
               items: [{ label: "Gateway of India" }],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      label: "Africa",
+      items: [
+        {
+          label: "Egypt",
+          items: [
+            {
+              label: "Cairo",
+              items: [
+                { label: "Pyramids of Giza" },
+                { label: "Great Sphinx of Giza" },
+                { label: "Khan el-Khalili" },
+              ],
+            },
+            {
+              label: "Luxor",
+              items: [{ label: "Valley of the Kings" }, { label: "Karnak" }],
+            },
+          ],
+        },
+        {
+          label: "South Africa",
+          items: [
+            {
+              label: "Cape Town",
+              items: [{ label: "Table Mountain" }],
+            },
+            {
+              label: "Johannesburg",
+              items: [{ label: "Constitution Hill" }],
             },
           ],
         },
