@@ -12,13 +12,7 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
     const [checkedState, setCheckedState] = React.useState(checked);
 
     return (
-      <div
-        className={cn(
-          "inline-block",
-          disabled && "cursor-not-allowed opacity-50",
-          className
-        )}
-      >
+      <div className={cn("inline-block", className)}>
         <input
           type="checkbox"
           checked={checkedState}
@@ -30,7 +24,8 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
           onClick={() => !disabled && setCheckedState(!checkedState)}
           className={cn(
             "rounded-md border border-neutral-400 p-1 text-xs tracking-[0.15em] text-neutral-600 transition-all dark:border-neutral-600",
-            checkedState && "border-primary-500 dark:border-primary-500"
+            checkedState && "border-primary-500 dark:border-primary-500",
+            disabled && "cursor-not-allowed opacity-50"
           )}
         >
           <div
