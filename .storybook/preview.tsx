@@ -20,7 +20,7 @@ export const DefaultDecorator = (Story) => (
   <div
     className={`${sans.variable} flex w-screen flex-col font-sans md:flex-row`}
   >
-    <div className="dark flex min-h-[50vh] items-center justify-center bg-neutral-950 p-2 md:h-screen md:w-1/2">
+    <div className="dark flex min-h-[50vh] items-center justify-center bg-neutral-950 p-2 text-white md:h-screen md:w-1/2">
       <Story />
     </div>
     <div className="light flex min-h-[50vh] items-center justify-center bg-neutral-50 p-2 md:h-screen md:w-1/2">
