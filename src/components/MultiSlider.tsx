@@ -36,7 +36,6 @@ interface MultiSliderProps {
    * The maximum upper bound that can be selelected with the slider.
    */
   max: number;
-
   /**
    * The minimum range that can be selected. If this is too small, the slider
    * thumbs may visually overlap.
@@ -182,26 +181,42 @@ export const MultiSlider = forwardRef<HTMLFieldSetElement, MultiSliderProps>(
     );
 
     const trackRef = useRef<HTMLDivElement>(null);
-    const filledTrackRef = useRef<HTMLDivElement>(null);
     const minThumbRef = useRef<HTMLDivElement>(null);
     const maxThumbRef = useRef<HTMLDivElement>(null);
 
     const minPercent = ((minValue - min) / (max - min)) * 100 + "%";
     const maxPercent = ((maxValue - min) / (max - min)) * 100 + "%";
 
-    const calcValue = (clientX: number, min: number, max: number) => {
-      const trackRect =
-        slidingThumb === "min"
-          ? trackRef.current?.getBoundingClientRect()
-          : trackRef.current?.getBoundingClientRect();
+    const calcValue = (clientX: number, minOrMax: string) => {
+      const trackRect = trackRef.current?.getBoundingClientRect();
+
       if (!trackRect) return 0;
 
       let value = ((clientX - trackRect.left) / trackRect.width) * max;
-      value = Math.min(Math.max(value, min), max);
+
+      if (minOrMax === "min") {
+        value = Math.min(Math.max(value, min), maxValue - minSelectableRange);
+      } else {
+        value = Math.min(Math.max(value, minValue + minSelectableRange), max);
+      }
+
       value = Math.round(value / step) * step;
 
       return value;
     };
+
+    // Idk why this don't work exactly right
+    // const calcValue2 = (clientX: number, min: number, max: number) => {
+    //   const trackRect = trackRef.current?.getBoundingClientRect();
+
+    //   if (!trackRect) return 0;
+
+    //   let value = ((clientX - trackRect.left) / trackRect.width) * max;
+    //   value = Math.min(Math.max(value, min), max);
+    //   value = Math.round(value / step) * step;
+
+    //   return value;
+    // };
 
     const determineClosestThumb = (clientX: number) => {
       const minThumbRect = minThumbRef.current?.getBoundingClientRect();
@@ -222,9 +237,11 @@ export const MultiSlider = forwardRef<HTMLFieldSetElement, MultiSliderProps>(
 
     const setValue = (clientX: number, thumb: "min" | "max" | null) => {
       if (thumb === "min") {
-        setMinValue(calcValue(clientX, min, maxValue - minSelectableRange));
+        setMinValue(calcValue(clientX, "min"));
+        // setMinValue(calcValue2(clientX, min, maxValue - minSelectableRange));
       } else {
-        setMaxValue(calcValue(clientX, minValue + minSelectableRange, max));
+        setMaxValue(calcValue(clientX, "max"));
+        // setMaxValue(calcValue2(clientX, minValue + minSelectableRange, max));
       }
     };
 
@@ -304,7 +321,7 @@ export const MultiSlider = forwardRef<HTMLFieldSetElement, MultiSliderProps>(
 
         <div
           className={cn(
-            "group flex h-10 cursor-pointer flex-col items-center justify-start gap-2",
+            "group flex cursor-pointer flex-col items-center justify-start gap-1",
             className
           )}
           aria-hidden={true}
@@ -335,43 +352,44 @@ export const MultiSlider = forwardRef<HTMLFieldSetElement, MultiSliderProps>(
             )}
           </div>
 
-          <div
-            className="relative flex h-2 w-72 rounded-md bg-neutral-300 dark:bg-neutral-600"
-            ref={trackRef}
-          >
+          <div className="flex h-[38px] items-center">
             <div
-              style={{
-                width: `calc(${maxPercent} - ${minPercent})`,
-                marginLeft: minPercent,
-              }}
-              ref={filledTrackRef}
-              className={cn(
-                "relative h-full rounded-md bg-primary-600",
-                disabled && "bg-neutral-500"
-              )}
-            ></div>
+              className="relative flex h-2 w-72 rounded-md bg-neutral-300 dark:bg-neutral-600"
+              ref={trackRef}
+            >
+              <div
+                style={{
+                  width: `calc(${maxPercent} - ${minPercent})`,
+                  marginLeft: minPercent,
+                }}
+                className={cn(
+                  "relative h-full rounded-md bg-primary-600",
+                  disabled && "bg-neutral-500"
+                )}
+              ></div>
 
-            <MultiSliderThumb
-              value={minValue}
-              percent={minPercent}
-              leftRightContain={leftRightContain}
-              isSliding={slidingThumb === "min"}
-              isFocused={focusedThumb === "min"}
-              disabled={disabled ?? false}
-              format={format}
-              ref={minThumbRef}
-            />
+              <MultiSliderThumb
+                value={minValue}
+                percent={minPercent}
+                leftRightContain={leftRightContain}
+                isSliding={slidingThumb === "min"}
+                isFocused={focusedThumb === "min"}
+                disabled={disabled ?? false}
+                format={format}
+                ref={minThumbRef}
+              />
 
-            <MultiSliderThumb
-              value={maxValue}
-              percent={maxPercent}
-              leftRightContain={leftRightContain}
-              isSliding={slidingThumb === "max"}
-              isFocused={focusedThumb === "max"}
-              disabled={disabled ?? false}
-              format={format}
-              ref={maxThumbRef}
-            />
+              <MultiSliderThumb
+                value={maxValue}
+                percent={maxPercent}
+                leftRightContain={leftRightContain}
+                isSliding={slidingThumb === "max"}
+                isFocused={focusedThumb === "max"}
+                disabled={disabled ?? false}
+                format={format}
+                ref={maxThumbRef}
+              />
+            </div>
           </div>
         </div>
       </fieldset>

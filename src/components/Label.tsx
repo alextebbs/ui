@@ -1,15 +1,12 @@
 import { forwardRef } from "react";
 import { cn } from "@/utils/cn";
 
-interface LabelProps extends React.LabelHTMLAttributes<HTMLLabelElement> {
+export interface LabelProps
+  extends React.LabelHTMLAttributes<HTMLLabelElement> {
   /**
    * The label text.
    */
   children: React.ReactNode | string;
-  /**
-   * Classname string to apply to the <code>input</code> element.
-   */
-  showLabel?: boolean;
   /**
    * Is this labeling a disabled input?
    */
@@ -22,10 +19,6 @@ interface LabelProps extends React.LabelHTMLAttributes<HTMLLabelElement> {
    * An icon (or any ReactNode) to show next to the label.
    */
   icon?: React.ReactNode;
-  /**
-   * Whether the current input content is considered valid or not.
-   */
-  "aria-invalid"?: boolean;
 }
 
 /**
@@ -35,13 +28,19 @@ export const Label = forwardRef<HTMLLabelElement, LabelProps>(
   ({ children, disabled, className, icon, ...props }, ref) => {
     return (
       <label
-        className={cn(disabled && "cursor-not-allowed opacity-50", className)}
+        ref={ref}
+        className={cn(
+          "flex",
+          disabled && "cursor-not-allowed opacity-50",
+          icon && "relative pl-5",
+          className
+        )}
         {...props}
       >
         {icon && (
           <div
             className={cn(
-              "pointer-events-none absolute bottom-0 left-0 top-0 flex w-10 items-center justify-center text-lg "
+              "pointer-events-none absolute -top-0.5 bottom-0 left-0 flex w-5 items-center justify-center text-xs"
             )}
           >
             {icon}

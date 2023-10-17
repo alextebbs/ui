@@ -145,7 +145,10 @@ export const Slider = forwardRef<HTMLInputElement, SliderProps>(
             <Label
               htmlFor={props?.name}
               disabled={disabled}
-              className={cn("absolute left-1/2 -translate-x-1/2")}
+              className={cn(
+                "absolute left-1/2 -translate-x-1/2",
+                !showLabel && "sr-only"
+              )}
             >
               {label}
             </Label>
