@@ -13,8 +13,8 @@ export default {
       },
       colors: {
         primary: colors.pink,
-        secondary: colors.yellow,
-        neutral: colors.slate,
+        secondary: colors.orange,
+        neutral: colors.stone,
         error: colors.red,
       },
     },

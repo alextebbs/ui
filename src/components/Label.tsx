@@ -25,12 +25,12 @@ export interface LabelProps
  * It's just an input.
  */
 export const Label = forwardRef<HTMLLabelElement, LabelProps>(
-  ({ children, disabled, className, icon, ...props }, ref) => {
+  ({ children, disabled, required, className, icon, ...props }, ref) => {
     return (
       <label
         ref={ref}
         className={cn(
-          "flex",
+          "flex text-xs uppercase",
           disabled && "cursor-not-allowed opacity-50",
           icon && "relative pl-5",
           className
@@ -46,7 +46,10 @@ export const Label = forwardRef<HTMLLabelElement, LabelProps>(
             {icon}
           </div>
         )}
-        <div className="text-xs uppercase tracking-[0.15em]">{children}</div>
+        <div className="tracking-[0.15em]">
+          {children}
+          {required && <sup className="text-error-500">*</sup>}
+        </div>
       </label>
     );
   }

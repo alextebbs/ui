@@ -27,13 +27,57 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     type: "text",
+    label: "Input Label",
+    name: "input",
+    placeholder: "Type here",
+    className: "w-72",
+  },
+};
+
+export const WithIcon: Story = {
+  args: {
+    type: "text",
     label: "Label",
+    name: "input",
+    showLabel: false,
     placeholder: "Search",
     className: "w-72",
+    icon: <BiSearch />,
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    type: "text",
+    label: "Input Label",
+    name: "input",
+    placeholder: "Type here",
+    className: "w-72",
+    disabled: true,
+  },
+};
+
+export const Error: Story = {
+  args: {
+    type: "text",
+    label: "Input Label",
+    name: "input",
+    placeholder: "Type here",
+    className: "w-72",
+    "aria-invalid": true,
+  },
+};
+
+export const CustomLabelProps: Story = {
+  args: {
+    type: "text",
+    label: "Input Label",
+    name: "input",
+    placeholder: "Type here",
+    className: "w-72",
     labelProps: {
+      className: "text-purple-500",
       icon: <BiStar />,
     },
-    "aria-invalid": false,
-    icon: <BiSearch />,
   },
 };

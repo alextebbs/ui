@@ -18,6 +18,33 @@ type Story = StoryObj<typeof meta>;
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const Default: Story = {
   args: {
-    disabled: false,
+    label: "Warp Drive",
+    name: "switch",
+    width: "100px",
+  },
+};
+export const Disabled: Story = {
+  args: {
+    label: "Warp Drive",
+    name: "switch",
+    width: "100px",
+    disabled: true,
+  },
+};
+export const Invalid: Story = {
+  args: {
+    label: "Warp Drive",
+    name: "switch",
+    width: "100px",
+    "aria-invalid": true,
+  },
+};
+export const Custom_Width: Story = {
+  args: {
+    label: "Warp Drive",
+    name: "switch",
+    showLabel: false,
+    width: "60px",
+    showOnOff: false,
   },
 };

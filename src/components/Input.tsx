@@ -72,6 +72,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         <Label
           htmlFor={name}
           disabled={disabled}
+          required={required}
           className={cn(
             "pb-1",
             !showLabel && "sr-only",
@@ -82,7 +83,6 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           {...labelProps}
         >
           {label}
-          {required && <sup className="text-error-500">*</sup>}
         </Label>
 
         <div className="relative dark:text-white">
@@ -90,15 +90,17 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             ref={ref}
             type={type}
             disabled={disabled}
+            name={name}
+            id={name}
             className={cn(
               "peer rounded-md border border-neutral-600 bg-transparent px-4 py-2 text-sm focus-visible:outline-none  dark:border-neutral-300 ",
               !isInvalid &&
                 `focus-visible:border-primary-500 focus-visible:bg-primary-500/10 focus-visible:placeholder:text-primary-500/40 focus-visible:dark:border-primary-500`,
+              className,
               isInvalid &&
                 `border-error-500 bg-error-500/10 placeholder:text-error-500/40 dark:border-error-500`,
               icon && `pl-9`,
-              disabled && `cursor-not-allowed opacity-50`,
-              className
+              disabled && `cursor-not-allowed opacity-50`
             )}
             {...props}
           />

@@ -7,11 +7,24 @@ import {
   useLayoutEffect,
 } from "react";
 import { cn } from "@/utils/cn";
-import { Chip } from "./Chip";
+import { Chip } from "@/components/Chip";
 
 import { nanoid } from "nanoid";
+import { Label, type LabelProps } from "@/components/Label";
 
 interface MultiSelectProps {
+  /**
+   * Label for this input.
+   */
+  label: string;
+  /**
+   * Whether to visually show the label
+   */
+  showLabel?: boolean;
+  /**
+   * props for the label
+   */
+  labelProps?: Omit<LabelProps, "children">;
   /**
    * A list of strings that represent the options in the dropdown.
    */
@@ -24,10 +37,6 @@ interface MultiSelectProps {
    * Is this multi-select disabled?
    */
   disabled?: boolean;
-  /**
-   * Text for label showing above multi-select.
-   */
-  label?: string;
   /**
    * Text for placeholder showing inside multi-select.
    */
@@ -97,6 +106,8 @@ export const MultiSelect = (props: MultiSelectProps) => {
     placeholder = "Type to select options",
     notFoundText = "No results found",
     width = "100%",
+    showLabel = true,
+    labelProps: { className: labelClassName, ...labelProps } = {},
   } = props;
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -290,16 +301,14 @@ export const MultiSelect = (props: MultiSelectProps) => {
       style={{ maxWidth: width, width: "100%" }}
       className={`${disabled && "cursor-not-allowed opacity-50"}`}
     >
-      {label && (
-        <label
-          className={cn(
-            `mb-2 block text-xs uppercase tracking-[0.15em] dark:text-neutral-300`,
-            disabled && "cursor-not-allowed"
-          )}
-        >
-          {label}
-        </label>
-      )}
+      <Label
+        htmlFor={name}
+        disabled={disabled}
+        className={cn("pb-1", !showLabel && "sr-only", labelClassName)}
+        {...labelProps}
+      >
+        {label}
+      </Label>
       <div className="relative text-sm uppercase dark:text-neutral-300">
         <div
           className={cn(

@@ -19,8 +19,79 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     children: "Button",
-    variant: "solid",
     size: "medium",
-    primary: true,
+  },
+};
+export const Small: Story = {
+  args: {
+    children: "button",
+    size: "small",
+  },
+};
+export const Large: Story = {
+  args: {
+    children: "button",
+    size: "large",
+  },
+};
+export const Ghost: Story = {
+  args: {
+    children: "Ghost button",
+    variant: "ghost",
+  },
+};
+export const Bordered: Story = {
+  args: {
+    children: "Bordered button",
+    variant: "bordered",
+  },
+};
+export const Secondary: Story = {
+  args: {
+    children: "Secondary button",
+    color: "secondary",
+  },
+};
+export const Secondary_Ghost: Story = {
+  args: {
+    children: "Secondary ghost button",
+    color: "secondary",
+    variant: "ghost",
+  },
+};
+export const Secondary_Bordered: Story = {
+  args: {
+    children: "Secondary bordered button",
+    color: "secondary",
+    variant: "bordered",
+  },
+};
+
+export const Neutral: Story = {
+  args: {
+    children: "Neutral button",
+    color: "neutral",
+  },
+};
+export const Neutral_Ghost: Story = {
+  args: {
+    children: "Neutral ghost button",
+    color: "neutral",
+    variant: "ghost",
+  },
+};
+export const Neutral_Bordered: Story = {
+  args: {
+    children: "Neutral bordered button",
+    color: "neutral",
+    variant: "bordered",
+  },
+};
+export const Custom_Class_Name: Story = {
+  args: {
+    children: "Custom button",
+    color: "primary",
+    className:
+      "normal-case tracking-normal bg-purple-500 hover:bg-purple-600 rounded-full",
   },
 };

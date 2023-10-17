@@ -3,9 +3,9 @@ import { cn } from "@/utils/cn";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /**
-   * Is this the principal call to action on the page?
+   * Color for this button.
    */
-  primary?: boolean;
+  primary?: "primary" | "secondary" | "neutral";
   /**
    * What style to use - ghost buttons are transparent, solid buttons have a
    * background color, and bordered buttons are transparent with a border.
@@ -32,7 +32,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
       children,
-      primary = true,
+      color = "primary",
       size = "medium",
       variant = "solid",
       disabled,
@@ -44,7 +44,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     /**
      * Tailwind is sort of silly. Doing things this way does not work.
      *
-     * const color = primary ? "blue-500" : "neutral-500";
+     * className={`bg-${color}-500`}
      *
      * <button className={`text-${color} border-${color} bg-${color`}>
      *
@@ -56,26 +56,22 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
      * to have that color. It doesn't matter where it is in file. It can even
      * be in a comment like this one:
      *
-     * text-red-500 text-green-500
+     * border-primary-500 hover:border-primary-600
+     * border-secondary-500 hover:border-secondary-600
+     * border-neutral-500 hover:border-neutral-600
+     * bg-primary-500 hover:bg-primary-800
+     * bg-secondary-500 hover:bg-secondary-800
+     * bg-neutral-500 hover:bg-neutral-600
+     * bg-secondary-500 hover:bg-secondary-600
+     * text-primary-500 hover:text-primary-600
+     * text-secondary-500 hover:text-secondary-600
+     * text-neutral-500 hover:text-neutral-600
+     * hover:bg-primary-500/10
+     * hover:bg-secondary-500/10
+     * hover:bg-neutral-500/10
      *
-     * This means that when this file is read by tailwind, it will determine that
-     * it needs to include text-red-500 and text-green-500 in the compiled
-     * package, even though those are just strings sitting in a comment.
-     *
-     * So instead, we do things like this:
+     * ...yeah.
      */
-
-    const color = {
-      border: primary
-        ? "border-primary-500 hover:border-primary-600"
-        : "border-neutral-500 hover:border-neutral-600",
-      bg: primary
-        ? "bg-primary-700 hover:bg-primary-800"
-        : "bg-neutral-500 hover:bg-neutral-600",
-      text: primary
-        ? "text-primary-500 hover:text-primary-600"
-        : "text-neutral-500 hover:text-neutral-600",
-    };
 
     return (
       <button
@@ -83,11 +79,12 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         className={cn(
           `appearance-none rounded-sm uppercase tracking-[0.1em] transition duration-150 ease-in-out active:scale-95`,
-          variant == "solid" && `${color.bg} text-white`,
+          variant == "solid" &&
+            `bg-${color}-500 text-white hover:bg-${color}-600`,
           variant == "ghost" &&
-            `bg-transparent ${color.text} hover:bg-primary-500/10`,
+            `bg-transparent text-${color}-500 hover:bg-${color}-500/10`,
           variant == "bordered" &&
-            `border ${color.border} ${color.text} hover:bg-primary-500/10`,
+            `border border-${color}-500 text-${color}-500 hover:bg-${color}-500/10`,
           variant == "bordered" && size == "large" && `border-2`,
           size == "small" && `px-4 py-2 text-xs`,
           size == "medium" && `px-4 py-2`,
