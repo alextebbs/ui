@@ -96,6 +96,7 @@ const useKeyPress = (
 
 /**
  * Multiple select dropdown. Binds to a hidden <code>select</code> element.
+ * Fully navigable with keyboard.
  */
 export const MultiSelect = (props: MultiSelectProps) => {
   const {

@@ -139,8 +139,9 @@ export const MultiSliderThumb = forwardRef<
 MultiSliderThumb.displayName = "MultiSliderThumb";
 
 /**
- * UI element for setting min/max within a range that binds to two
- * <code>input[type="range"]</code>s.
+ * UI element for selecting a range between two values that binds to two
+ * <code>input[type="range"]</code>s. Fully navigable with keyboard and
+ * accessible to screen readers.
  */
 export const MultiSlider = forwardRef<HTMLFieldSetElement, MultiSliderProps>(
   (props, ref) => {

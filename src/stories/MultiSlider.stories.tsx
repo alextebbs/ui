@@ -4,7 +4,7 @@ import { MultiSlider } from "@/components/MultiSlider";
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
-  title: "Example/MultiSlider",
+  title: "UI/MultiSlider",
   component: MultiSlider,
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
   tags: ["autodocs"],

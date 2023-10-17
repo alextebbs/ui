@@ -13,7 +13,7 @@ export interface InputProps
    */
   showLabel?: boolean;
   /**
-   * props for the label
+   * Props for the label
    */
   labelProps?: Omit<LabelProps, "children">;
   /**
@@ -90,6 +90,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             ref={ref}
             type={type}
             disabled={disabled}
+            required={disabled}
             name={name}
             id={name}
             className={cn(

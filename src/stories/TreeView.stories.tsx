@@ -5,7 +5,7 @@ import { TreeView } from "@/components/TreeView";
 import { DATA } from "./mock-data/treeview";
 
 const meta = {
-  title: "Example/TreeView",
+  title: "UI/TreeView",
   component: TreeView,
   tags: ["autodocs"],
   argTypes: {},

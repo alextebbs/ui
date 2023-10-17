@@ -47,6 +47,7 @@ interface SliderProps extends InputHTMLAttributes<HTMLInputElement> {
 
 /**
  * Slider UI that binds to a <code>input[type="range"]</code>.
+ * Fully navigable with keyboard and accessible to screen readers.
  */
 export const Slider = forwardRef<HTMLInputElement, SliderProps>(
   (

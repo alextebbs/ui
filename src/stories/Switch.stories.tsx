@@ -4,7 +4,7 @@ import { Switch } from "@/components/Switch";
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
-  title: "Example/Switch",
+  title: "UI/Switch",
   component: Switch,
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
   tags: ["autodocs"],
