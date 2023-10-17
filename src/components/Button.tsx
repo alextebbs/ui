@@ -5,7 +5,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /**
    * Color for this button.
    */
-  primary?: "primary" | "secondary" | "neutral";
+  color?: "primary" | "secondary" | "neutral";
   /**
    * What style to use - ghost buttons are transparent, solid buttons have a
    * background color, and bordered buttons are transparent with a border.

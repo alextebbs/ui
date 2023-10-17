@@ -9,7 +9,11 @@ const meta = {
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
   tags: ["autodocs"],
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
-  argTypes: {},
+  argTypes: {
+    children: {
+      control: "text",
+    },
+  },
 } satisfies Meta<typeof Button>;
 
 export default meta;
@@ -30,13 +34,13 @@ export const Small: Story = {
 };
 export const Large: Story = {
   args: {
-    children: "button",
+    children: "Large Button",
     size: "large",
   },
 };
 export const Ghost: Story = {
   args: {
-    children: "Ghost button",
+    children: "Small Button",
     variant: "ghost",
   },
 };
