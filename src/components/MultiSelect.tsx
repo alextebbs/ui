@@ -388,7 +388,7 @@ export const MultiSelect = (props: MultiSelectProps) => {
         </div>
       </div>
 
-      <div className="sr-only">
+      <div className="hidden">
         <select name={name} id={name} multiple disabled={disabled}>
           {options.map((option, i) => {
             const isSelected = selectedOptionValues.includes(option.value);

@@ -20,6 +20,10 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
    */
   children: string | React.ReactNode;
   /**
+   * An icon (or any ReactNode) to show inside the button.
+   */
+  icon?: React.ReactNode;
+  /**
    * Optional click handler
    */
   onClick?: () => void;
@@ -35,6 +39,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       color = "primary",
       size = "medium",
       variant = "solid",
+      icon,
       disabled,
       className,
       ...props
@@ -78,7 +83,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         type="button"
         ref={ref}
         className={cn(
-          `appearance-none rounded-sm uppercase tracking-[0.1em] transition duration-150 ease-in-out active:scale-95`,
+          `flex appearance-none items-center rounded-sm uppercase tracking-[0.1em] transition duration-150 ease-in-out focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 active:scale-95 focus-visible:dark:ring-offset-neutral-950`,
           variant == "solid" &&
             `bg-${color}-500 text-white hover:bg-${color}-600`,
           variant == "ghost" &&
@@ -95,6 +100,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         {children}
+        {icon && <span className="pl-2">{icon}</span>}
       </button>
     );
   }

@@ -5,6 +5,8 @@ import { Slider } from "@/components/Slider";
 import { MultiSlider } from "@/components/MultiSlider";
 import { Switch } from "@/components/Switch";
 import { Button } from "@/components/Button";
+import { PiRocketLaunchDuotone } from "react-icons/pi";
+import { AiOutlineCalendar, AiFillLock } from "react-icons/ai";
 
 interface IntroductionProps {}
 
@@ -16,7 +18,7 @@ export const Introduction = (props: IntroductionProps) => {
     <div className="w-full max-w-[600px] pb-12 pt-12">
       <h2 className="mb-4 text-xl"># Storybook UI Exploration</h2>
       <p className="mb-4">
-        This is a little project I&apos;m working on to experiment with creating
+        This is a project I&apos;m working with to experiment with creating
         reusable and accessible UI components in Storybook.
       </p>
       <p className="mb-4">
@@ -24,6 +26,7 @@ export const Introduction = (props: IntroductionProps) => {
         their supported options. I&apos;ve composed some of them together here
         in this form as an example layout.
       </p>
+      <p>Try navigating the form with your keyboard.</p>
 
       <div className="mt-24 rounded-md border border-neutral-400 dark:border-neutral-800">
         <div className="border-b border-neutral-400 px-4 py-4 dark:border-neutral-800 md:px-12">
@@ -32,51 +35,96 @@ export const Introduction = (props: IntroductionProps) => {
           </h3>
         </div>
         <div className="p-4 md:p-12">
-          <div className="flex flex-col gap-8">
-            <MultiSelect
-              options={DATA}
-              label="Target destinations"
-              name={"country"}
-            />
-            <div className="flex w-full flex-col gap-8 md:flex-row">
-              <Input
-                className="flex-1"
-                type="text"
-                label="Name"
-                placeholder="First and last name"
-                required
+          <div className="flex flex-col">
+            <div className="pb-12">
+              <MultiSelect
+                options={DATA}
+                label="Target destinations"
+                name={"country"}
               />
-              <Input
-                className="flex-1"
-                type="password"
-                label="Authorization Code"
-                placeholder="Enter credentials"
-                required
-              />
+              <div className="pt-2 text-xs text-neutral-500">
+                This styled multi-select binds to a hidden select[multiple]
+                element.
+              </div>
             </div>
-            <MultiSlider
-              label="Speed Range"
-              min={0}
-              max={100}
-              step={5}
-              minSelectableRange={20}
-              minInputProps={{ value: 20 }}
-              maxInputProps={{ value: 80 }}
-              leftRightContain={true}
-              format={(str) => `${str}AU/h`}
-            />
-            <Slider
-              label="Orbit dist."
-              min={0}
-              max={500}
-              step={50}
-              leftRightContain={true}
-              format={(str) => `${str}km`}
-            />
-            <div className="flex w-full flex-row flex-wrap gap-8">
-              <Switch label="Warp Drive" />
-              <Switch label="Grav Drive" />
-              <Switch checked label="Engines" />
+            <div className="pb-12">
+              <div className="flex w-full flex-col gap-8 pb-6 md:flex-row">
+                <Input
+                  className="flex-1"
+                  type="text"
+                  label="Name"
+                  placeholder="First and last name"
+                  required
+                />
+                <Input
+                  className="flex-1"
+                  type="password"
+                  label="Authorization Code"
+                  icon={<AiFillLock />}
+                  placeholder="Enter credentials"
+                />
+              </div>
+              <div className="flex w-full flex-col gap-8 md:flex-row">
+                <Input
+                  className="flex-1"
+                  type="number"
+                  label="Est. Duration (years)"
+                  placeholder="Enter years"
+                  min={1}
+                  required
+                  aria-invalid
+                />
+                <Input
+                  className="flex-1"
+                  type="date"
+                  label="Launch Date"
+                  placeholder="Enter launch date"
+                  icon={<AiOutlineCalendar />}
+                  disabled
+                />
+              </div>
+              <div className="pt-2 text-xs text-neutral-500">
+                These input elements use standard HTML props like 'required',
+                'disabled', and 'aria-invalid' to determine their style.
+              </div>
+            </div>
+            <div className="pb-12">
+              <div className="flex flex-col gap-8">
+                <MultiSlider
+                  label="Speed Range"
+                  min={0}
+                  max={100}
+                  step={5}
+                  minSelectableRange={20}
+                  minInputProps={{ value: 20 }}
+                  maxInputProps={{ value: 80 }}
+                  leftRightContain={true}
+                  format={(str) => `${str}AU/h`}
+                />
+                <Slider
+                  label="Orbit dist."
+                  min={0}
+                  max={500}
+                  step={50}
+                  leftRightContain={true}
+                  format={(str) => `${str}km`}
+                />
+              </div>
+              <div className="pt-2 text-xs text-neutral-500">
+                These styled sliders bind to hidden input[type='range']
+                elements.
+              </div>
+            </div>
+            <div className="pb-12">
+              <div className="flex w-full flex-row flex-wrap gap-4 md:gap-6">
+                <Switch label="Warp Drive" />
+                <Switch label="Grav Drive" />
+                <Switch checked label="Engines" />
+              </div>
+              <div className="pt-2 text-xs text-neutral-500">
+                These styled switches bind to hidden input[type='checkbox']
+                elements.
+              </div>
             </div>
           </div>
         </div>
@@ -85,7 +133,7 @@ export const Introduction = (props: IntroductionProps) => {
             <Button color="neutral" variant="ghost">
               Abort
             </Button>
-            <Button>Authorize</Button>
+            <Button icon={<PiRocketLaunchDuotone />}>Authorize</Button>
           </div>
         </div>
       </div>
