@@ -26,12 +26,15 @@ export const Introduction = (props: IntroductionProps) => {
         their supported options. I&apos;ve composed some of them together here
         in this form as an example layout.
       </p>
-      <p>Try navigating the form with your keyboard.</p>
+      <p>
+        Try navigating the form with your keyboard. The top toolbar can switch
+        from light to dark theme.
+      </p>
 
       <div className="mt-12 rounded-md border border-neutral-400 dark:border-neutral-800">
         <div className="border-b border-neutral-400 px-4 py-4 dark:border-neutral-800 md:px-12">
           <h3 className="text-sm uppercase tracking-[0.15em]">
-            Starship Launch Configuration
+            Starship Launch Config
           </h3>
         </div>
         <div className="p-4 md:p-12">
@@ -39,7 +42,7 @@ export const Introduction = (props: IntroductionProps) => {
             <div className="pb-12">
               <MultiSelect
                 options={DATA}
-                label="Target destinations"
+                label="Target destination(s)"
                 name={"country"}
               />
               <div className="pt-2 text-xs text-neutral-500">
@@ -53,7 +56,7 @@ export const Introduction = (props: IntroductionProps) => {
                   className="flex-1"
                   type="text"
                   label="Name"
-                  placeholder="First and last name"
+                  placeholder="Enter name"
                   required
                 />
                 <Input
@@ -68,7 +71,7 @@ export const Introduction = (props: IntroductionProps) => {
                 <Input
                   className="flex-1"
                   type="number"
-                  label="Est. Duration (years)"
+                  label="Est. Duration (YRS)"
                   placeholder="Enter years"
                   min={1}
                   required
