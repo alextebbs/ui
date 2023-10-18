@@ -5,7 +5,7 @@ import { MultiSelect } from "@/components/MultiSelect";
 import { DATA } from "./mock-data/countries";
 
 const meta = {
-  title: "UI/MultiSelect",
+  title: "MultiSelect",
   component: MultiSelect,
   tags: ["autodocs"],
   argTypes: {},

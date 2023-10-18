@@ -59,7 +59,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
      * border-primary-500 hover:border-primary-600
      * border-secondary-500 hover:border-secondary-600
      * border-neutral-500 hover:border-neutral-600
-     * bg-primary-500 hover:bg-primary-800
+     * bg-primary-500 hover:bg-primary-600
      * bg-secondary-500 hover:bg-secondary-800
      * bg-neutral-500 hover:bg-neutral-600
      * bg-secondary-500 hover:bg-secondary-600

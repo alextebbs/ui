@@ -316,7 +316,7 @@ export const MultiSelect = (props: MultiSelectProps) => {
       <div className="relative text-sm uppercase dark:text-neutral-300">
         <div
           className={cn(
-            `flex flex-wrap gap-1 border border-solid border-neutral-600 p-1 dark:border-neutral-300`,
+            `flex flex-wrap gap-1 border border-solid border-neutral-600 p-[calc(0.25rem-1px)] dark:border-neutral-300`,
             !isDropdownHidden ? `rounded-tl-md rounded-tr-md` : `rounded-md`
           )}
         >
@@ -336,14 +336,14 @@ export const MultiSelect = (props: MultiSelectProps) => {
             placeholder={placeholder}
             disabled={disabled}
             className={cn(
-              `flex-grow appearance-none rounded-sm border border-transparent bg-transparent p-1 px-3 uppercase outline-none placeholder:text-neutral-400 dark:text-white dark:placeholder:text-neutral-700`,
+              `flex-grow appearance-none rounded-sm border border-transparent bg-transparent p-1 px-3 outline-none placeholder:text-neutral-400 dark:text-white dark:placeholder:text-neutral-700`,
               disabled && `cursor-not-allowed`
             )}
           />
         </div>
         <div
           className={cn(
-            `absolute left-0 right-0 top-full max-h-[320px] overflow-auto rounded-bl-md rounded-br-md border border-t-0 border-neutral-600 dark:border-neutral-300`,
+            `absolute left-0 right-0 top-full z-10 max-h-[320px] overflow-auto rounded-bl-md rounded-br-md border border-t-0 border-neutral-600 bg-neutral-50 dark:border-neutral-300 dark:bg-neutral-950`,
             isDropdownHidden && `hidden`
           )}
         >
@@ -388,7 +388,7 @@ export const MultiSelect = (props: MultiSelectProps) => {
         </div>
       </div>
 
-      <div className="hidden">
+      <div className="sr-only">
         <select name={name} id={name} multiple disabled={disabled}>
           {options.map((option, i) => {
             const isSelected = selectedOptionValues.includes(option.value);

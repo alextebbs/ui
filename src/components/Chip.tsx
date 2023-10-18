@@ -31,8 +31,8 @@ export const Chip = (props: ChipProps) => {
         <button
           className="p-1 px-2"
           onClick={onRemove}
-          onMouseEnter={() => setRemoveHovered(true)}
-          onMouseLeave={() => setRemoveHovered(false)}
+          onPointerEnter={() => setRemoveHovered(true)}
+          onPointerLeave={() => setRemoveHovered(false)}
         >
           &times;
         </button>

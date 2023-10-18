@@ -4,7 +4,7 @@ import { type Config } from "tailwindcss";
 const colors = require("tailwindcss/colors");
 
 export default {
-  content: ["./src/**/*.{js,ts,jsx,tsx}", "./.storybook/preview.tsx"],
+  content: ["./src/**/*.{js,ts,jsx,tsx,mdx}", "./.storybook/preview.tsx"],
   darkMode: ["class", '[data-mode="dark"]'],
   theme: {
     extend: {
@@ -13,7 +13,7 @@ export default {
       },
       colors: {
         primary: colors.pink,
-        secondary: colors.orange,
+        secondary: colors.blue,
         neutral: colors.stone,
         error: colors.red,
       },

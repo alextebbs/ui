@@ -12,5 +12,9 @@ body,
 }
 
 #storybook-root {
-  @apply flex h-screen w-screen items-center justify-center;
+  /* @apply flex h-screen w-screen items-center justify-center; */
+}
+
+.sbdocs-wrapper {
+  @apply bg-neutral-950;
 }

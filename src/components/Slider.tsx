@@ -130,7 +130,7 @@ export const Slider = forwardRef<HTMLInputElement, SliderProps>(
 
         <div
           className={cn(
-            "group flex h-10 w-full cursor-pointer flex-col items-center justify-start gap-2",
+            "group flex w-full cursor-pointer flex-col items-center justify-start gap-2",
             disabled && "pointer-events-none"
           )}
           onPointerDown={handlePointerDown}
@@ -138,7 +138,7 @@ export const Slider = forwardRef<HTMLInputElement, SliderProps>(
         >
           <div className="relative top-[-2px] flex w-full items-center justify-between">
             {showMinMaxRange && (
-              <div className="select-none text-xs tracking-[0.15em] text-slate-500">
+              <div className="select-none text-xs tracking-[0.15em] text-neutral-500">
                 <div className={cn(!leftRightContain && "-translate-x-1/2")}>
                   {format(min)}
                 </div>
@@ -155,7 +155,7 @@ export const Slider = forwardRef<HTMLInputElement, SliderProps>(
               {label}
             </Label>
             {showMinMaxRange && (
-              <div className="select-none text-xs tracking-[0.15em] text-slate-500">
+              <div className="select-none text-xs tracking-[0.15em] text-neutral-500">
                 <div className={cn(!leftRightContain && "translate-x-1/2")}>
                   {format(max)}
                 </div>
@@ -163,39 +163,41 @@ export const Slider = forwardRef<HTMLInputElement, SliderProps>(
             )}
           </div>
 
-          <div
-            className="relative flex h-2 w-full rounded-md bg-neutral-300 dark:bg-neutral-600"
-            ref={trackRef}
-          >
+          <div className="flex h-[38px] w-full items-center">
             <div
-              style={{ width: percent }}
-              className={cn(
-                "relative h-full rounded-md bg-primary-600",
-                disabled && "bg-neutral-500"
-              )}
-            ></div>
-            <div
-              className={cn(
-                "absolute top-1/2 -translate-y-1/2 cursor-pointer select-none",
-                !leftRightContain && "-translate-x-1/2"
-              )}
-              style={{
-                left: percent,
-                transform: `translateX(-${
-                  leftRightContain ? percent : "50%"
-                }) translateY(-50%)`,
-              }}
+              className="relative flex h-2 w-full rounded-md bg-neutral-300 dark:bg-neutral-600"
+              ref={trackRef}
             >
               <div
+                style={{ width: percent }}
                 className={cn(
-                  "rounded-md bg-primary-500 px-2 py-1 text-xs text-white transition-transform group-hover:scale-[115%]",
-                  disabled && "bg-neutral-500",
-                  isSliding && "scale-[115%]",
-                  isFocused &&
-                    "scale-[115%] ring-2 ring-primary-500 ring-offset-1 ring-offset-neutral-50 dark:ring-offset-neutral-950"
+                  "relative h-full rounded-md bg-primary-600",
+                  disabled && "bg-neutral-500"
                 )}
+              ></div>
+              <div
+                className={cn(
+                  "absolute top-1/2 -translate-y-1/2 cursor-pointer select-none",
+                  !leftRightContain && "-translate-x-1/2"
+                )}
+                style={{
+                  left: percent,
+                  transform: `translateX(-${
+                    leftRightContain ? percent : "50%"
+                  }) translateY(-50%)`,
+                }}
               >
-                {format(value)}
+                <div
+                  className={cn(
+                    "rounded-md bg-primary-500 px-2 py-1 text-xs text-white transition-transform group-hover:scale-[115%]",
+                    disabled && "bg-neutral-500",
+                    isSliding && "scale-[115%]",
+                    isFocused &&
+                      "scale-[115%] ring-2 ring-primary-500 ring-offset-1 ring-offset-neutral-50 dark:ring-offset-neutral-950"
+                  )}
+                >
+                  {format(value)}
+                </div>
               </div>
             </div>
           </div>

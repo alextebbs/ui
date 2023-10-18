@@ -332,7 +332,7 @@ export const MultiSlider = forwardRef<HTMLFieldSetElement, MultiSliderProps>(
         >
           <div className="relative top-[-2px] flex w-full items-center justify-between">
             {showMinMaxRange && (
-              <div className="select-none text-xs tracking-[0.15em] text-slate-500">
+              <div className="select-none text-xs tracking-[0.15em] text-neutral-500">
                 <div className={cn(!leftRightContain && "-translate-x-1/2")}>
                   {format(min)}
                 </div>
@@ -345,7 +345,7 @@ export const MultiSlider = forwardRef<HTMLFieldSetElement, MultiSliderProps>(
               <legend>{label}</legend>
             </Label>
             {showMinMaxRange && (
-              <div className="select-none text-xs tracking-[0.15em] text-slate-500">
+              <div className="select-none text-xs tracking-[0.15em] text-neutral-500">
                 <div className={cn(!leftRightContain && "translate-x-1/2")}>
                   {format(max)}
                 </div>
@@ -353,9 +353,9 @@ export const MultiSlider = forwardRef<HTMLFieldSetElement, MultiSliderProps>(
             )}
           </div>
 
-          <div className="flex h-[38px] items-center">
+          <div className="flex h-[38px] w-full items-center">
             <div
-              className="relative flex h-2 w-72 rounded-md bg-neutral-300 dark:bg-neutral-600"
+              className="relative flex h-2 w-full flex-1 rounded-md bg-neutral-300 dark:bg-neutral-600"
               ref={trackRef}
             >
               <div
