@@ -46,9 +46,9 @@ interface MultiSelectProps {
    */
   notFoundText?: string;
   /**
-   * CSS width of the multi-select.
+   * Classnames to apply to main container element
    */
-  width?: string;
+  className?: string;
 }
 
 interface DropDownOption {
@@ -106,8 +106,8 @@ export const MultiSelect = (props: MultiSelectProps) => {
     disabled = false,
     placeholder = "Type to select options",
     notFoundText = "No results found",
-    width = "100%",
     showLabel = true,
+    className,
     labelProps: { className: labelClassName, ...labelProps } = {},
   } = props;
 
@@ -299,8 +299,11 @@ export const MultiSelect = (props: MultiSelectProps) => {
 
   return (
     <div
-      style={{ maxWidth: width, width: "100%" }}
-      className={`${disabled && "cursor-not-allowed opacity-50"}`}
+      className={cn(
+        `w-full`,
+        disabled && "cursor-not-allowed opacity-50",
+        className
+      )}
     >
       <Label
         htmlFor={name}

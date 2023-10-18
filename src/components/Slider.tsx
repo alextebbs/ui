@@ -1,6 +1,5 @@
 import { type InputHTMLAttributes, forwardRef, useState, useRef } from "react";
 import { cn } from "@/utils/cn";
-import { check } from "prettier";
 import { Label } from "./Label";
 
 interface SliderProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -106,7 +105,9 @@ export const Slider = forwardRef<HTMLInputElement, SliderProps>(
     };
 
     return (
-      <div className={cn(className)}>
+      <div
+        className={cn(disabled && "cursor-not-allowed opacity-50", className)}
+      >
         <input
           type="range"
           min={min}
@@ -130,7 +131,7 @@ export const Slider = forwardRef<HTMLInputElement, SliderProps>(
         <div
           className={cn(
             "group flex h-10 w-full cursor-pointer flex-col items-center justify-start gap-2",
-            disabled && "pointer-events-none cursor-not-allowed opacity-50"
+            disabled && "pointer-events-none"
           )}
           onPointerDown={handlePointerDown}
           role="hidden"

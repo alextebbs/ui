@@ -25,7 +25,34 @@ export const Default: Story = {
     max: 100,
     step: 1,
     value: 34,
-    disabled: false,
     format: (value) => value.toString() + "%",
   },
 };
+
+// export const Disabled: Story = {
+//   args: {
+//     label: "Volume",
+//     name: "volume",
+//     className: "min-w-[320px]",
+//     min: 0,
+//     max: 100,
+//     step: 1,
+//     value: 34,
+//     disabled: true,
+//     format: (value) => value.toString() + "%",
+//   },
+// };
+
+// export const Step_Prop: Story = {
+//   args: {
+//     label: "Set Price",
+//     name: "price",
+//     className: "min-w-[320px]",
+//     min: 0,
+//     max: 1000,
+//     step: 20,
+//     value: 500,
+//     disabled: true,
+//     format: (value) => value.toString() + "$",
+//   },
+// };

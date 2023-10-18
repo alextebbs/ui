@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body,
+.docs-story {
+  @apply bg-neutral-50 font-sans dark:bg-neutral-950 dark:text-white;
+}
+
+.docs-story {
+  @apply flex h-full w-full items-center justify-center pb-32 pt-32;
+}
+
+#storybook-root {
+  @apply flex h-screen w-screen items-center justify-center;
+}

@@ -20,6 +20,17 @@ export const Default: Story = {
     name: "countries",
     notFoundText: "No countries found",
     options: DATA,
-    width: "480px",
+    className: "w-full sm:w-96",
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    label: "Select countries",
+    name: "countries",
+    notFoundText: "No countries found",
+    options: DATA,
+    className: "w-full sm:w-96",
+    disabled: true,
   },
 };

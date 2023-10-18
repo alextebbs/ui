@@ -2,9 +2,8 @@ import { type Preview } from "@storybook/react";
 
 import React from "react";
 
-import { withThemeByClassName } from "@storybook/addon-styling";
+import { withThemeByDataAttribute } from "@storybook/addon-themes";
 
-/* TODO: update import to your tailwind styles file. If you're using Angular, inject this through your angular.json config instead */
 import "@/styles/globals.css";
 
 import { IBM_Plex_Mono } from "next/font/google";
@@ -17,21 +16,25 @@ export const sans = IBM_Plex_Mono({
 });
 
 export const DefaultDecorator = (Story) => (
-  <div
-    className={`${sans.variable} flex w-screen flex-col font-sans md:flex-row`}
-  >
-    <div className="dark flex min-h-[50vh] items-center justify-center bg-neutral-950 p-2 text-white md:h-screen md:w-1/2">
-      <Story />
-    </div>
-    <div className="light flex min-h-[50vh] items-center justify-center bg-neutral-50 p-2 md:h-screen md:w-1/2">
-      <Story />
-    </div>
+  <div className={`${sans.variable} font-sans`}>
+    <Story />
   </div>
 );
 
+export const ThemeDecorator = withThemeByDataAttribute({
+  themes: {
+    light: "light",
+    dark: "dark",
+  },
+  defaultTheme: "light",
+  attributeName: "data-mode",
+});
+
+/* snipped for brevity */
 const preview: Preview = {
   parameters: {
     layout: "fullscreen",
+    backgrounds: { disable: true },
     actions: { argTypesRegex: "^on[A-Z].*" },
     controls: {
       matchers: {
@@ -40,7 +43,9 @@ const preview: Preview = {
       },
     },
   },
-  decorators: [DefaultDecorator],
+  // decorators: [DefaultDecorator, ThemeDecorator],
 };
+
+export const decorators = [DefaultDecorator, ThemeDecorator];
 
 export default preview;
