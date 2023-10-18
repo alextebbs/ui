@@ -9,7 +9,6 @@ import {
 import { cn } from "@/utils/cn";
 import { Chip } from "@/components/Chip";
 
-import { nanoid } from "nanoid";
 import { Label, type LabelProps } from "@/components/Label";
 
 interface MultiSelectProps {
@@ -282,8 +281,8 @@ export const MultiSelect = (props: MultiSelectProps) => {
 
     return (
       <span>
-        {parts.map((part) => (
-          <span key={nanoid()}>
+        {parts.map((part, i) => (
+          <span key={i}>
             {part.toLowerCase() === pattern.toLowerCase() ? (
               <mark className="bg-transparent text-inherit underline">
                 {part}
@@ -321,7 +320,7 @@ export const MultiSelect = (props: MultiSelectProps) => {
           )}
         >
           {selectedOptions.map((item) => (
-            <div key={nanoid()}>
+            <div key={item.value}>
               <Chip onRemove={() => handleRemoveOption(item)}>
                 {item.label}
               </Chip>
@@ -352,36 +351,36 @@ export const MultiSelect = (props: MultiSelectProps) => {
               {notFoundText}
             </div>
           )}
-          {dropDownOptions.map((option, i) => {
-            return option.isDisabled ? (
+          {dropDownOptions.map((item, i) => {
+            return item.isDisabled ? (
               <div
-                key={nanoid()}
+                key={item.value}
                 className="w-full cursor-not-allowed appearance-none p-2 px-4 text-left uppercase text-neutral-600"
               >
-                {option.label}
+                {item.label}
               </div>
             ) : (
               <button
                 // Don't fire blur when you mousedown here, or else the dropdown
                 // will disappear before the click event fires.
-                key={nanoid()}
+                key={item.value}
                 onMouseDown={(e) => e.preventDefault()}
-                onClick={() => handleAddOption(option)}
+                onClick={() => handleAddOption(item)}
                 onMouseMove={() => {
                   manageHighlightedDropDownOption(dropDownOptions, i);
                 }}
                 className={cn(
                   `group relative w-full appearance-none p-2 px-4 text-left uppercase`,
-                  option.isHighlighted && `bg-primary-500/20 text-primary-500`
+                  item.isHighlighted && `bg-primary-500/20 text-primary-500`
                 )}
               >
                 <div
                   className={cn(
                     `absolute -inset-[1px] z-10 border border-primary-500`,
-                    option.isHighlighted ? `block` : `hidden`
+                    item.isHighlighted ? `block` : `hidden`
                   )}
                 ></div>
-                {getHighlightedText(option.label, inputValue)}
+                {getHighlightedText(item.label, inputValue)}
               </button>
             );
           })}
@@ -390,12 +389,12 @@ export const MultiSelect = (props: MultiSelectProps) => {
 
       <div className="hidden">
         <select name={name} id={name} multiple disabled={disabled}>
-          {options.map((option, i) => {
-            const isSelected = selectedOptionValues.includes(option.value);
+          {options.map((item, i) => {
+            const isSelected = selectedOptionValues.includes(item.value);
 
             return (
-              <option key={nanoid()} value={option.value} selected={isSelected}>
-                {option.label}
+              <option key={item.value} value={item.value} selected={isSelected}>
+                {item.label}
               </option>
             );
           })}

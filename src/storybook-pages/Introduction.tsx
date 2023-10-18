@@ -120,9 +120,9 @@ export const Introduction = (props: IntroductionProps) => {
             </div>
             <div className="pb-12">
               <div className="flex w-full flex-row flex-wrap gap-4 md:gap-6">
-                <Switch label="Warp Drive" />
-                <Switch label="Grav Drive" />
-                <Switch checked label="Engines" />
+                <Switch label="Warp Drive" name="warp" />
+                <Switch label="Grav Drive" name="grav" />
+                <Switch checked label="Engines" name="engines" />
               </div>
               <div className="pt-2 text-xs text-neutral-500">
                 These styled switches bind to hidden input[type='checkbox']
