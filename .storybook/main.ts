@@ -12,6 +12,7 @@ const config: StorybookConfig = {
       name: "@storybook/addon-styling",
       options: {},
     },
+    "@storybook/addon-themes"
   ],
   framework: {
     name: "@storybook/nextjs",

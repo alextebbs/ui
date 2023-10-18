@@ -5,7 +5,7 @@ const colors = require("tailwindcss/colors");
 
 export default {
   content: ["./src/**/*.{js,ts,jsx,tsx}", "./.storybook/preview.tsx"],
-  darkMode: "class",
+  darkMode: ["class", '[data-mode="dark"]'],
   theme: {
     extend: {
       fontFamily: {
