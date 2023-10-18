@@ -1,6 +1,6 @@
 import { Input } from "@/components/Input";
 import { MultiSelect } from "@/components/MultiSelect";
-import { DATA } from "../stories/mock-data/countries";
+import { DATA } from "../stories/mock-data/stars";
 import { Slider } from "@/components/Slider";
 import { MultiSlider } from "@/components/MultiSlider";
 import { Switch } from "@/components/Switch";
@@ -33,6 +33,11 @@ export const Introduction = (props: IntroductionProps) => {
         </div>
         <div className="p-4 md:p-12">
           <div className="flex flex-col gap-8">
+            <MultiSelect
+              options={DATA}
+              label="Target destinations"
+              name={"country"}
+            />
             <div className="flex w-full flex-col gap-8 md:flex-row">
               <Input
                 className="flex-1"
@@ -49,11 +54,6 @@ export const Introduction = (props: IntroductionProps) => {
                 required
               />
             </div>
-            <MultiSelect
-              options={DATA}
-              label="Target Destinations"
-              name={"country"}
-            />
             <MultiSlider
               label="Speed Range"
               min={0}
@@ -74,9 +74,9 @@ export const Introduction = (props: IntroductionProps) => {
               format={(str) => `${str}km`}
             />
             <div className="flex w-full flex-row flex-wrap gap-8">
-              <Switch checked className="" label="Warp Drive" />
-              <Switch checked className="" label="Grav Drive" />
-              <Switch className="" label="Engines" />
+              <Switch label="Warp Drive" />
+              <Switch label="Grav Drive" />
+              <Switch checked label="Engines" />
             </div>
           </div>
         </div>
