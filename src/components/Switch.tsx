@@ -99,7 +99,7 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
         >
           <div
             className={cn(
-              "flex h-8 overflow-hidden rounded-sm transition-all",
+              "flex h-8 select-none overflow-hidden rounded-sm transition-all",
               !checkedState && "bg-neutral-200 dark:bg-neutral-800",
               checkedState && "bg-primary-500/20"
             )}

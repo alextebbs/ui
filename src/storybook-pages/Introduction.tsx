@@ -18,8 +18,8 @@ export const Introduction = (props: IntroductionProps) => {
     <div className="w-full max-w-[600px] pb-12 pt-12">
       <h2 className="mb-4 text-xl"># Storybook UI Exploration</h2>
       <p className="mb-4">
-        This is a project I&apos;m working with to experiment with creating
-        reusable and accessible UI components in Storybook.
+        This is a space for me to experiment with creating reusable and
+        accessible UI components in Storybook.
       </p>
       <p className="mb-4">
         You can click through the sidebar to view the different UI elements and
@@ -28,7 +28,7 @@ export const Introduction = (props: IntroductionProps) => {
       </p>
       <p>Try navigating the form with your keyboard.</p>
 
-      <div className="mt-24 rounded-md border border-neutral-400 dark:border-neutral-800">
+      <div className="mt-12 rounded-md border border-neutral-400 dark:border-neutral-800">
         <div className="border-b border-neutral-400 px-4 py-4 dark:border-neutral-800 md:px-12">
           <h3 className="text-sm uppercase tracking-[0.15em]">
             Starship Launch Configuration

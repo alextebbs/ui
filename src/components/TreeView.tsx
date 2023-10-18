@@ -77,7 +77,7 @@ export const TreeView = (props: TreeViewProps) => {
       </div>
     </div>
   ) : (
-    <div className="flex w-full flex-col text-sm text-slate-600 dark:text-slate-300">
+    <div className="flex w-full flex-col text-sm text-neutral-600 dark:text-neutral-300">
       <div className="flex items-center pb-1 pt-1">
         <div className="ml-4 mr-2 text-xl">
           <AiOutlineFile />
