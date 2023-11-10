@@ -7,6 +7,7 @@ import { Switch } from "@/components/Switch";
 import { Button } from "@/components/Button";
 import { PiRocketLaunchDuotone } from "react-icons/pi";
 import { AiOutlineCalendar, AiFillLock } from "react-icons/ai";
+import { type FormEvent } from "react";
 
 interface IntroductionProps {}
 
@@ -14,6 +15,11 @@ interface IntroductionProps {}
  * Small "chip" or "tag" component. Used in MultiSelect component.
  */
 export const Introduction = (props: IntroductionProps) => {
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    console.log(e);
+  };
+
   return (
     <div className="w-full max-w-[600px] pb-12 pt-12">
       <h2 className="mb-4 text-xl"># Storybook UI Exploration</h2>
@@ -31,7 +37,10 @@ export const Introduction = (props: IntroductionProps) => {
         from light to dark theme.
       </p>
 
-      <div className="mt-12 rounded-md border border-neutral-400 dark:border-neutral-800">
+      <form
+        onSubmit={handleSubmit}
+        className="mt-12 rounded-md border border-neutral-400 dark:border-neutral-800"
+      >
         <div className="border-b border-neutral-400 px-4 py-4 dark:border-neutral-800 md:px-12">
           <h3 className="text-sm uppercase tracking-[0.15em]">
             Starship Launch Config
@@ -136,10 +145,12 @@ export const Introduction = (props: IntroductionProps) => {
             <Button color="neutral" variant="ghost">
               Abort
             </Button>
-            <Button icon={<PiRocketLaunchDuotone />}>Authorize</Button>
+            <Button type="submit" icon={<PiRocketLaunchDuotone />}>
+              Authorize
+            </Button>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   );
 };
