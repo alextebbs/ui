@@ -15,6 +15,13 @@ import { nanoid } from "nanoid";
 import { useState } from "react";
 import { BiSearch } from "react-icons/bi";
 
+import resolveConfig from "tailwindcss/resolveConfig";
+import tailwindConfig from "../../tailwind.config";
+
+const fullConfig = resolveConfig(tailwindConfig);
+
+console.log(fullConfig);
+
 export default function IndexPage() {
   const [items, setItems] = useState(["one", "two", "three"]);
 
