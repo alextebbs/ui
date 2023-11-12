@@ -46,38 +46,6 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref
   ) => {
-    /**
-     * Tailwind is sort of silly. Doing things this way does not work.
-     *
-     * className={`bg-${color}-500`}
-     *
-     * <button className={`text-${color} border-${color} bg-${color`}>
-     *
-     * Tailwind will not include classes like "text-blue-500" in the compiled
-     * package, because it doesn't see that FULL string anywhere in the file.
-     *
-     * Instead, Tailwind literally needs you to have the full className string
-     * ("text-blue-500") somewhere in the file, or it won't compile the package
-     * to have that color. It doesn't matter where it is in file. It can even
-     * be in a comment like this one:
-     *
-     * border-primary-500 hover:border-primary-600
-     * border-secondary-500 hover:border-secondary-600
-     * border-neutral-500 hover:border-neutral-600
-     * bg-primary-500 hover:bg-primary-600
-     * bg-secondary-500 hover:bg-secondary-800
-     * bg-neutral-500 hover:bg-neutral-600
-     * bg-secondary-500 hover:bg-secondary-600
-     * text-primary-500 hover:text-primary-600
-     * text-secondary-500 hover:text-secondary-600
-     * text-neutral-500 hover:text-neutral-600
-     * hover:bg-primary-500/10
-     * hover:bg-secondary-500/10
-     * hover:bg-neutral-500/10
-     *
-     * ...yeah.
-     */
-
     return (
       <button
         type="button"

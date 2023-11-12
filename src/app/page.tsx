@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/Button";
+
 import { Calendar } from "@/components/Calendar";
 import { Chip } from "@/components/Chip";
 import { Input } from "@/components/Input";
@@ -20,8 +21,6 @@ import tailwindConfig from "../../tailwind.config";
 
 const fullConfig = resolveConfig(tailwindConfig);
 
-console.log(fullConfig);
-
 export default function IndexPage() {
   const [items, setItems] = useState(["one", "two", "three"]);
 
@@ -39,23 +38,9 @@ export default function IndexPage() {
     <>
       <div className="dark flex h-screen w-screen flex-col items-center justify-center gap-4 bg-slate-950 text-white">
         <div className="flex gap-4">
-          {items.map((item) => (
-            <Chip key={nanoid()} onRemove={() => handleRemove(item)}>
-              {item}
-            </Chip>
-          ))}
+          <Input label="Search" onClick={handleAdd} />
+          <Button onClick={handleAdd}>Search</Button>
         </div>
-
-        <Input
-          onChange={(e) => setItemToAdd(e.target.value)}
-          type="text"
-          value={itemToAdd}
-          label="Add"
-        />
-
-        <Button onClick={handleAdd}>add</Button>
-
-        <MultiSelect options={DATA} label="hmm" name={"hmm"} />
       </div>
     </>
   );

@@ -29,5 +29,6 @@ export const Default: Story = {
     label: "Price Range",
     maxLabel: "Maximum Price",
     minLabel: "Minimum Price",
+    className: "w-full max-w-[320px]",
   },
 };

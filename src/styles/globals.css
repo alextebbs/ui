@@ -13,6 +13,7 @@ body,
 
 #storybook-root {
   /* @apply flex h-screen w-screen items-center justify-center; */
+  @apply flex flex-grow justify-center;
 }
 
 .sbdocs-wrapper {

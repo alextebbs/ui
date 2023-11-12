@@ -7,7 +7,7 @@ import {
   useLayoutEffect,
 } from "react";
 import { cn } from "@/utils/cn";
-import { Chip } from "@/components/Chip";
+import { Chip } from "./Chip";
 
 import { Label, type LabelProps } from "@/components/Label";
 
